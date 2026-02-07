@@ -1,0 +1,72 @@
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { ImportWalletOptions as ImportWalletOptionsEnum, Network } from '@/lib/constants'
+
+export interface Wallet {
+    network: Network;
+    publicKey: string;
+    privateKey: string;
+}
+
+interface WalletState {
+    step: number;
+    isNewWallet: boolean;
+    selectedNetworks: Network[];
+    importWalletOption: ImportWalletOptionsEnum | null;
+
+    password: string;
+    mnemonic: string;
+    importedPrivateKey: string;
+
+    wallets: Wallet[];
+
+    setStep: (step: number) => void;
+    setIsNewWallet: (isNew: boolean) => void;
+    setSelectedNetworks: (networks: Network[]) => void;
+    setImportWalletOption: (option: ImportWalletOptionsEnum | null) => void;
+    setPassword: (pass: string) => void;
+    setMnemonic: (phrase: string) => void;
+    setImportedPrivateKey: (key: string) => void;
+    setWallets: (wallets: Wallet[]) => void;
+    resetFlow: () => void;
+}
+
+export const useWalletStore = create<WalletState>()(
+    persist(
+        (set) => ({
+            step: 0,
+            isNewWallet: false,
+            selectedNetworks: [],
+            importWalletOption: null,
+            password: '',
+            mnemonic: '',
+            importedPrivateKey: '',
+            wallets: [],
+
+            setStep: (step: number) => set({ step }),
+            setIsNewWallet: (isNewWallet: boolean) => set({ isNewWallet }),
+            setSelectedNetworks: (selectedNetworks: Network[]) => set({ selectedNetworks }),
+            setImportWalletOption: (importWalletOption: ImportWalletOptionsEnum | null) => set({ importWalletOption }),
+            setPassword: (password: string) => set({ password }),
+            setMnemonic: (mnemonic: string) => set({ mnemonic }),
+            setImportedPrivateKey: (importedPrivateKey: string) => set({ importedPrivateKey }),
+            setWallets: (wallets: Wallet[]) => set({ wallets }),
+
+            resetFlow: () => set({
+                step: 0,
+                isNewWallet: false,
+                selectedNetworks: [],
+                importWalletOption: null,
+                password: '',
+                mnemonic: '',
+                importedPrivateKey: '',
+            })
+        }),
+        {
+            name: 'swoosh-wallet-storage',
+            partialize: (state: WalletState) => ({
+                wallets: state.wallets,
+            }),
+        }
+    )
+)

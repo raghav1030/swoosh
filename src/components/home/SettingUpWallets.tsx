@@ -1,17 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Network } from '@/lib/constants'
-import { Loader2 } from 'lucide-react'
+import { Network, networkIconRegistry } from '@/lib/constants'
 
-const NetworkLogo = ({ network }: { network: Network }) => {
-    switch (network) {
-        case Network.Solana:
-            return <div className="text-4xl font-bold bg-gradient-to-tr from-purple-400 to-green-400 bg-clip-text text-transparent">SOL</div>
-        case Network.Ethereum:
-            return <div className="text-4xl font-bold bg-gradient-to-tr from-gray-400 to-white bg-clip-text text-transparent">ETH</div>
-        default:
-            return <div className="text-2xl text-white">?</div>
-    }
-}
 
 interface SettingUpWalletsProps {
     selectedNetworks: Network[];
@@ -39,7 +28,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete }: SettingUpWalletsProp
     if (currentIndex >= selectedNetworks.length) return null;
 
     return (
-        <div className="w-full flex flex-col items-center justify-center p-8 gap-10 min-h-[300px]">
+        <div className='w-full flex flex-1 flex-col items-center  justify-between p-5 gap-12'>
             <div className="text-center space-y-2 animate-fade-in">
                 <h2 className="text-2xl font-semibold text-secondary tracking-wide">
                     Setting up <span className="text-white font-bold">{currentNetwork}</span> Wallet
@@ -53,7 +42,11 @@ const SettingUpWallets = ({ selectedNetworks, onComplete }: SettingUpWalletsProp
                 <div className="absolute inset-0 w-full h-full rounded-full border-4 border-secondary/20 border-t-secondary animate-spin" />
                 <div className="absolute inset-2 w-28 h-28 rounded-full border-2 border-secondary/10 border-b-secondary/50 animate-spin-slow-reverse" />
                 <div className="relative z-10 flex items-center justify-center w-20 h-20 bg-black/50 rounded-full backdrop-blur-sm border border-white/10 shadow-xl">
-                    <NetworkLogo network={currentNetwork} />
+                    <img
+                        src={networkIconRegistry[currentNetwork]}
+                        alt={currentNetwork}
+                        className='rounded-full size-16 object-cover'
+                    />
                 </div>
             </div>
             <div className="flex gap-2">

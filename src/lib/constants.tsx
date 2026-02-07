@@ -7,9 +7,14 @@ export enum Network {
   Solana = 'Solana',
 }
 
+export enum ImportWalletOptions {
+  RecoveryPhrase = 'RecoveryPhrase',
+  PrivateKey = 'PrivateKey' 
+}
+
 const networkIconRegistry: { [key: string]: string } = {
-    'Solana': SolanaIcon,
-    'Ethereum': EthereumIcon,
+  'Solana': SolanaIcon,
+  'Ethereum': EthereumIcon,
 };
 
 const availableNetworks = []

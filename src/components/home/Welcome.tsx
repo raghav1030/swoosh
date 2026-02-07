@@ -6,12 +6,21 @@ import { Label } from '../ui/label'
 import { Button } from '../ui/button'
 import { Link } from 'react-router'
 
-const Welcome = ({ setStep, setIsNewWallet }: { setStep: (step: number) => void, setIsNewWallet: (isNewWallet: boolean) => void }) => {
+interface WelcomeProps {
+    setStep: (step: number) => void;
+    setIsNewWallet: (isNew: boolean) => void;
+}
+
+const Welcome = ({ setStep, setIsNewWallet }: WelcomeProps) => {
     const [checked, setChecked] = useState(false)
 
-    return (
-        <div className="flex flex-col items-center justify-around p-5 gap-8 ">
+    const handleStart = (isNew: boolean) => {
+        setIsNewWallet(isNew)
+        setStep(1)
+    }
 
+    return (
+        <div className="flex flex-col items-center justify-around p-2 gap-8">
             <h2 className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-3xl md:text-5xl tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-primary via-secondary to-secondary">
                 <span>Swoosh</span>
                 <span className="text-white text-lg font-thin">x</span>
@@ -67,10 +76,7 @@ const Welcome = ({ setStep, setIsNewWallet }: { setStep: (step: number) => void,
                     size="lg"
                     disabled={!checked}
                     className="w-full cursor-pointer h-13 bg-primary rounded-sm text-lg tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    onClick={() => {
-                        setIsNewWallet(true)
-                        setStep(1)
-                    }}
+                    onClick={() => handleStart(true)}
                 >
                     Create New Wallet
                 </Button>
@@ -78,16 +84,12 @@ const Welcome = ({ setStep, setIsNewWallet }: { setStep: (step: number) => void,
                     size="lg"
                     disabled={!checked}
                     className="w-full cursor-pointer h-13 bg-secondary/20 hover:bg-secondary/30 rounded-sm text-lg tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    onClick={() => {
-                        setIsNewWallet(false)
-                        setStep(1)
-                    }}
+                    onClick={() => handleStart(false)}
                 >
                     I already have a wallet
                 </Button>
             </div>
         </div>
-
     )
 }
 
