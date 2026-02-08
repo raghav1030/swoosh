@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Swoosh Wallet",
+  "version": "1.0.0",
+  "description": "A Decentralized Wallet for Solana and EVM Chains",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Swoosh Wallet"
+  },
+  "permissions": ["storage", "activeTab"],
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

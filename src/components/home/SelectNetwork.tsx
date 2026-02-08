@@ -59,7 +59,7 @@ const SelectNetwork = ({ isNewWallet, selectedNetworks, setSelectedNetworks, onN
             {<div className="w-full">
                 <Button
                     disabled={selectedNetworks.length === 0}
-                    className={`w-full h-13 bg-secondary/80 hover:bg-secondary/90 ${selectedNetworks.length > 0 ? 'opacity-100' : 'opacity-80'} rounded-sm tracking-wide text-black font-semibold text-lg`}
+                    className={`w-full h-12 bg-secondary/95 hover:bg-secondary ${selectedNetworks.length > 0 ? 'opacity-100' : 'opacity-80'} rounded-sm tracking-wide text-black font-semibold text-lg`}
                     size={'lg'}
                     onClick={onNext}
                 >

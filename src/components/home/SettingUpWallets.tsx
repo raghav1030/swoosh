@@ -1,31 +1,38 @@
 import { useEffect, useState } from 'react'
 import { Network, networkIconRegistry } from '@/lib/constants'
 
-
 interface SettingUpWalletsProps {
     selectedNetworks: Network[];
     onComplete: () => void;
+    isNewWallet: boolean;
+    isProcessing: boolean;
 }
 
-const SettingUpWallets = ({ selectedNetworks, onComplete }: SettingUpWalletsProps) => {
+const SettingUpWallets = ({ selectedNetworks, onComplete, isNewWallet, isProcessing }: SettingUpWalletsProps) => {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [hasStarted, setHasStarted] = useState(false)
 
     useEffect(() => {
-        if (currentIndex >= selectedNetworks.length) {
-            onComplete();
-            return;
+        if (isProcessing) {
+            setHasStarted(true)
         }
+    }, [isProcessing])
 
-        const timer = setTimeout(() => {
-            setCurrentIndex((prev) => prev + 1)
-        }, 2000)
+    useEffect(() => {
+        if (hasStarted && !isProcessing) {
+            onComplete()
+        }
+    }, [hasStarted, isProcessing, onComplete])
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % selectedNetworks.length)
+        }, 1000)
 
         return () => clearTimeout(timer)
-    }, [currentIndex, selectedNetworks, onComplete])
+    }, [selectedNetworks.length])
 
-    const currentNetwork = selectedNetworks[currentIndex] || selectedNetworks[selectedNetworks.length - 1];
-
-    if (currentIndex >= selectedNetworks.length) return null;
+    const currentNetwork = selectedNetworks[currentIndex] || selectedNetworks[0];
 
     return (
         <div className='w-full flex flex-1 flex-col items-center  justify-between p-5 gap-12'>
@@ -34,7 +41,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete }: SettingUpWalletsProp
                     Setting up <span className="text-white font-bold">{currentNetwork}</span> Wallet
                 </h2>
                 <p className="text-secondary/60 text-sm">
-                    Generating keys and encrypting data...
+                    {isNewWallet ? "Generating" : "Importing"} keys and encrypting data...
                 </p>
             </div>
 

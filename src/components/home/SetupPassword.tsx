@@ -125,7 +125,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                             <Button
                                 type="submit"
                                 disabled={!canSubmit}
-                                className={`w-full h-13 bg-secondary/70 hover:bg-secondary/80 rounded-sm tracking-wide text-black font-semibold text-md transition-opacity ${!canSubmit ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
+                                className={`w-full h-12 bg-secondary/95 hover:bg-secondary rounded-sm tracking-wide text-black font-semibold text-md transition-opacity ${!canSubmit || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
                                 size={'lg'}
                             >
                                 {isSubmitting ? 'Setting up...' : 'Next'}
