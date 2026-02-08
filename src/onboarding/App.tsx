@@ -42,8 +42,6 @@ function App() {
   const [isProcessing, setIsProcessing] = useState(false)
   const hasGenerated = useRef(false)
 
-  // Normal flow ends at Step 6 (Success).
-  // Extended flow (Not Found -> Create New) goes to Step 9.
   const totalSteps = step >= 7 ? 9 : 6
 
   const slideVariants = {
@@ -69,26 +67,22 @@ function App() {
   }
 
   const handleBack = () => {
-    // Case: Back from Password (Step 8) -> Wallet Not Found (Step 7)
     if (step === 8) {
-      setIsNewWallet(false) // Revert state so we are back in "Import" mode logic
+      setIsNewWallet(false)
       navigate(7)
       return
     }
-    // Case: Back from Wallet Not Found (Step 7) -> Enter Phrase (Step 3)
     if (step === 7) {
-      setIsNewWallet(false) // Vital: Revert state so Step 3 shows Input, not Mnemonic Generation
+      setIsNewWallet(false)
       navigate(3)
       return
     }
-    // Prevent going back during processing (Step 4) or Success (Step 6 or 9)
     if (step === 4 || step === 6 || step === 9) return
 
     if (step > 0) navigate(step - 1)
   }
 
   const handleNext = () => {
-    // Modified: Only generate a NEW mnemonic if we don't already have one.
     if (step === 2 && isNewWallet && !mnemonic) {
       setMnemonic(generateMnemonic())
     }
@@ -109,10 +103,9 @@ function App() {
     navigate(4)
   }
 
-  // Handle the "Create New Wallet" button on the Not Found screen
   const handleCreateFromExisting = () => {
-    setIsNewWallet(true) // Switch mode to New Wallet logic
-    navigate(8) // Go to Password Setup (Step 8)
+    setIsNewWallet(true)
+    navigate(8)
   }
 
   const processWalletGeneration = async () => {
@@ -133,21 +126,19 @@ function App() {
         throw new Error("Unknown generation flow")
       }
 
-      // 1. Scan for accounts
       const scanResults = await scanForAccounts(generatedWallets[0].publicKey)
       const hasActiveAccounts = scanResults.some(r => r.exists)
 
-      // 2. Decide next step
       setWallets(generatedWallets)
       setIsProcessing(false)
 
       if (isNewWallet) {
-        navigate(6) // Success (Normal Flow)
+        navigate(6)
       } else {
         if (hasActiveAccounts) {
-          navigate(6) // Success (Import Flow)
+          navigate(6)
         } else {
-          navigate(7) // Wallet Not Found Screen
+          navigate(7)
         }
       }
 
@@ -199,19 +190,12 @@ function App() {
       case 4:
         return <SettingUpWallets isNewWallet={isNewWallet} selectedNetworks={selectedNetworks} isProcessing={isProcessing} onComplete={() => { }} />
       case 5:
-        // Optional "Middle" step if you needed padding, currently skipping to 6 in logic, 
-        // but if your flow is strictly 1->2->3->4->5->6, you might want this to be something.
-        // Based on previous code, Step 4 was SettingUpWallets. 
-        // If you want 6 steps total, maybe Step 5 is a "Finalizing" or just empty transition?
-        // OR: You can just map success to 6 directly. 
-        // For now, let's assume we jump straight to 6 for success.
         return null
       case 6:
         return <WalletCreationSuccess />
       case 7:
         return <WalletNotFound onCreateNew={handleCreateFromExisting} onTryAgain={handleBack} />
       case 8:
-        // Reuse SetupPassword. On Next, go to Step 9 (Success)
         return <SetupPassword setPassword={setPassword} onNext={() => navigate(9)} />
       case 9:
         return <WalletCreationSuccess />
@@ -225,7 +209,6 @@ function App() {
       <div className="relative z-10 flex flex-col border border-white/20 rounded-xl dark:border-white/20 w-full max-w-lg min-h-[600px] bg-black/40 backdrop-blur-sm shadow-2xl overflow-hidden">
         <div className='flex-none w-full grid grid-cols-3 px-6 pt-6 pb-2 z-20'>
           <div className="flex items-center justify-start">
-            {/* Show Back button on all steps > 0 except Success (6 & 9) and Processing (4) */}
             {step > 0 && step !== 4 && step !== 6 && step !== 9 && (
               <button
                 onClick={handleBack}
@@ -236,7 +219,6 @@ function App() {
             )}
           </div>
           <div className="flex items-center justify-center">
-            {/* Always show Stepper if we aren't on Success (6 or 9) */}
             {step > 0 && step !== 6 && step !== 9 && (
               <Stepper step={step} totalSteps={totalSteps} />
             )}

@@ -1,5 +1,5 @@
 import { Button } from "../ui/button"
-import { AlertTriangle, ShieldX } from "lucide-react"
+import { ShieldX } from "lucide-react"
 
 interface WalletNotFoundProps {
     onCreateNew: () => void;
@@ -42,8 +42,6 @@ const WalletNotFound = ({ onCreateNew, onTryAgain }: WalletNotFoundProps) => {
                 onClick={() => onTryAgain()}
             >                Go Back
             </Button>
-
-
         </div>
     )
 }

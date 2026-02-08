@@ -42,10 +42,8 @@ const App = () => {
         )
     }
 
-    // Case 2: Wallet Exists -> Show Dashboard
     return (
         <div className="h-[600px] w-[360px] bg-black text-white p-4">
-            {/* Replace this with your actual Dashboard Component later */}
             <div className="flex flex-col gap-4">
                 <h1 className="text-xl font-bold">Dashboard</h1>
                 <div className="p-4 bg-gray-900 rounded-lg">
