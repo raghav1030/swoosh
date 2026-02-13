@@ -77,8 +77,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                                 </div>
                                 {field.state.value != "" && field.state.meta.errors.length > 0 ? (
                                     <p className="text-red-400 text-sm tracking-wide px-1">
-                                        {field.state.meta.errors.map((p) => p?.message)}
-                                    </p>
+                                        {field.state.meta.errors.map((p: any) => p?.message)}                                    </p>
                                 ) : null}
                             </div>
                         )}
@@ -110,8 +109,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                                 </div>
                                 {field.state.value != "" && field.state.meta.errors.length > 0 ? (
                                     <p className="text-red-400 text-sm tracking-wide px-1">
-                                        {field.state.meta.errors.map((p) => p?.message)}
-                                    </p>
+                                        {field.state.meta.errors.map((p: any) => p?.message)}                                    </p>
                                 ) : null}
                             </div>
                         )}

@@ -12,16 +12,18 @@ const App = () => {
     }, [])
 
     const openOnboarding = () => {
-        if (chrome.tabs) {
-            chrome.tabs.create({ url: 'onboarding.html' })
+        if (typeof chrome !== 'undefined' && chrome.tabs) {
+            // This opens the extension version of the page
+            chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') })
         } else {
-            window.open('onboarding.html', '_blank')
+            // This handles local development (localhost:5173)
+            window.open('/onboarding.html', '_blank')
         }
     }
 
     if (!hydrated) return <div className="h-[600px] w-[360px] bg-black" />
 
-    if (!wallets || wallets.length === 0) {
+    if (wallets || wallets.length === 0) {
         return (
             <div className="h-[600px] w-[360px] bg-black text-white flex flex-col items-center justify-center p-6 gap-6">
                 <div className="text-center space-y-2">

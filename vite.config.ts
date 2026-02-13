@@ -6,7 +6,6 @@ import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.json'
 import path from 'path'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -14,16 +13,20 @@ export default defineConfig({
     nodePolyfills(),
     crx({ manifest }),
   ],
+  server: {
+    // This ensures that when you visit /onboarding.html, Vite serves it
+    open: true,
+  },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(process.cwd(), "./src"),
     },
   },
   build: {
     rollupOptions: {
       input: {
-        popup: 'index.html',
-        onboarding: 'onboarding.html',
+        main: path.resolve(__dirname, 'index.html'),
+        onboarding: path.resolve(__dirname, 'onboarding.html'),
       },
     },
   },
