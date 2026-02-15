@@ -5,6 +5,7 @@ import SocialCard from './SocialCard';
 import { WindIcon } from '../ui/wind';
 import { useWalletStore } from '../../store/useWalletStore';
 import { useState } from 'react';
+import * as CryptoJS from 'crypto-js'
 
 const EXTENSION_ID = "jjikigjnfeogeefjleigkanlbdefhhpm"
 
@@ -12,53 +13,40 @@ const WalletCreationSuccess = () => {
     const { mnemonic, password } = useWalletStore();
     const [isSynced, setIsSynced] = useState(false);
 
-    const handleSyncAndOpen = () => {
-        console.log("Button clicked. Mnemonic present:", !!mnemonic);
-
-        if (!window.chrome || !window.chrome.runtime) {
-            alert("Chrome runtime not found. Are you in a supported browser?");
+    const handleSyncAndOpen = async () => {
+        const { mnemonic, password } = useWalletStore.getState();
+        if (!mnemonic || !password) {
+            console.error("Mnemonic or Password missing from store");
             return;
         }
 
-        // Check if we are actually running inside the extension (onboarding.html)
-        const isExtensionPage = window.location.protocol === 'chrome-extension:';
-
-        if (isExtensionPage && window.chrome.storage) {
-            console.log("Detected Extension Page: Saving directly to storage...");
-            window.chrome.storage.local.set({
-                mnemonic,
-                password,
-                hasWallet: true
-            }, () => {
-                setIsSynced(true);
-                alert("Wallet saved to Swoosh! Use Shift+Alt+S to open.");
-            });
-        } else {
-            console.log("Detected Web Page: Sending message to extension...", EXTENSION_ID);
-            window.chrome.runtime.sendMessage(
-                EXTENSION_ID,
-                {
-                    type: "SYNC_WALLET",
-                    mnemonic: mnemonic,
-                    password: password
-                },
-                (response) => {
-                    // Check for errors in communication
-                    if (window.chrome.runtime.lastError) {
-                        console.error("Sync Error:", window.chrome.runtime.lastError.message);
-                        alert("Extension not found. Check if the ID matches and Extension is enabled.");
-                        return;
+        try {
+            const encryptedMnemonic = await CryptoJS.AES.encrypt(mnemonic, password).toString();
+            
+            if (window.chrome && window.chrome.runtime) {
+                console.log("hi", encryptedMnemonic)
+                window.chrome.runtime.sendMessage(
+                    EXTENSION_ID,
+                    {
+                        type: "SYNC_WALLET",
+                        encryptedMnemonic: encryptedMnemonic,
+                        hasWallet: true
+                    },
+                    (response) => {
+                        console.log("hi3")
+                        if (window.chrome.runtime.lastError) {
+                            console.error("Sync error:", window.chrome.runtime.lastError.message);
+                            return;
+                        }
+                        if (response?.success) {
+                            setIsSynced(true);
+                        }
                     }
-
-                    if (response?.success) {
-                        console.log("Sync Response Success!");
-                        setIsSynced(true);
-                        alert("Swoosh Wallet Synced Successfully!");
-                    } else {
-                        console.warn("Sync failed or no response received.");
-                    }
-                }
-            );
+                );
+            }
+        } catch (error) {
+            console.log("hi2")
+            console.log("Encryption failed:", error);
         }
     };
 

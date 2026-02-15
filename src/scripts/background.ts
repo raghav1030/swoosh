@@ -1,16 +1,20 @@
 chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
     if (message.type === "SYNC_WALLET") {
-        const { mnemonic, password } = message;
+        const { encryptedMnemonic } = message;
 
         chrome.storage.local.set({
-            mnemonic,
-            password,
+            encryptedMnemonic,
             hasWallet: true
         }, () => {
-            console.log("Wallet synced from localhost!");
+            console.log("Wallet saved to storage");
+
+            chrome.tabs.create({
+                url: chrome.runtime.getURL("index.html")
+            });
+
             sendResponse({ success: true });
         });
 
-        return true; // Keeps the messaging channel open for the async response
+        return true; 
     }
 });

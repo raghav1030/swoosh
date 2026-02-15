@@ -30,4 +30,12 @@ export default defineConfig({
       },
     },
   },
+  // cors: {
+  //   origin: [
+  //     "chrome-extension://jjikigjnfeogeefjleigkanlbdefhhpm",
+  //     "http://localhost:5173"
+  //   ],
+  //   methods: ["GET", "POST"],
+  //   allowedHeaders: ["Content-Type", "Authorization"],
+  // },
 })

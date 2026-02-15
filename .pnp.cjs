@@ -43,6 +43,7 @@ const RAW_RUNTIME_STATE =
           ["@tailwindcss/vite", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:4.1.18"],\
           ["@tanstack/react-form", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:1.28.1"],\
           ["@types/chrome", "npm:0.1.36"],\
+          ["@types/crypto-js", "npm:4.2.2"],\
           ["@types/node", "npm:25.2.3"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:19.2.3"],\
@@ -51,6 +52,7 @@ const RAW_RUNTIME_STATE =
           ["bs58", "npm:6.0.0"],\
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
+          ["crypto-js", "npm:4.2.0"],\
           ["dependency", "npm:0.0.1"],\
           ["ed25519-hd-key", "npm:1.3.0"],\
           ["eslint", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:9.39.2"],\
@@ -6748,6 +6750,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/crypto-js", [\
+      ["npm:4.2.2", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-crypto-js-npm-4.2.2-21357d525e-10c0.zip/node_modules/@types/crypto-js/",\
+        "packageDependencies": [\
+          ["@types/crypto-js", "npm:4.2.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/estree", [\
       ["npm:1.0.8", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-estree-npm-1.0.8-2195bac6d6-10c0.zip/node_modules/@types/estree/",\
@@ -8054,6 +8065,15 @@ const RAW_RUNTIME_STATE =
           ["public-encrypt", "npm:4.0.3"],\
           ["randombytes", "npm:2.1.0"],\
           ["randomfill", "npm:1.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["crypto-js", [\
+      ["npm:4.2.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/crypto-js-npm-4.2.0-d6f7744e63-10c0.zip/node_modules/crypto-js/",\
+        "packageDependencies": [\
+          ["crypto-js", "npm:4.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11594,6 +11614,7 @@ const RAW_RUNTIME_STATE =
           ["@tailwindcss/vite", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:4.1.18"],\
           ["@tanstack/react-form", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:1.28.1"],\
           ["@types/chrome", "npm:0.1.36"],\
+          ["@types/crypto-js", "npm:4.2.2"],\
           ["@types/node", "npm:25.2.3"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:19.2.3"],\
@@ -11602,6 +11623,7 @@ const RAW_RUNTIME_STATE =
           ["bs58", "npm:6.0.0"],\
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
+          ["crypto-js", "npm:4.2.0"],\
           ["dependency", "npm:0.0.1"],\
           ["ed25519-hd-key", "npm:1.3.0"],\
           ["eslint", "virtual:54256a06f222ec9b4c534a8a58e61e7c2d566a99c90fad0340e4fdc729eadd79216dda82af48ecacd0b3461a8e3d1c369fda1fa2f604cffffac8386a19ad3dc3#npm:9.39.2"],\

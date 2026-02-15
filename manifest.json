@@ -10,10 +10,13 @@
     "service_worker": "src/scripts/background.ts",
     "type": "module"
   },
+  "permissions": ["storage", "activeTab", "tabs"],
   "externally_connectable": {
     "matches": ["http://localhost:5173/*"]
   },
-  "permissions": ["storage", "activeTab"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval' http://localhost:5173; object-src 'self';"
+  },
   "host_permissions": [
     "https://api.devnet.solana.com/*",
     "https://ethereum-sepolia-rpc.publicnode.com/*"
