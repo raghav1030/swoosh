@@ -14,7 +14,7 @@ const WalletCreationSuccess = () => {
     const [isSynced, setIsSynced] = useState(false);
 
     const handleSyncAndOpen = async () => {
-        const { mnemonic, password } = useWalletStore.getState();
+        const { mnemonic, password, selectedNetworks } = useWalletStore.getState();
         if (!mnemonic || !password) {
             console.error("Mnemonic or Password missing from store");
             return;
@@ -22,7 +22,7 @@ const WalletCreationSuccess = () => {
 
         try {
             const encryptedMnemonic = await CryptoJS.AES.encrypt(mnemonic, password).toString();
-            
+
             if (window.chrome && window.chrome.runtime) {
                 console.log("hi", encryptedMnemonic)
                 window.chrome.runtime.sendMessage(
@@ -30,6 +30,7 @@ const WalletCreationSuccess = () => {
                     {
                         type: "SYNC_WALLET",
                         encryptedMnemonic: encryptedMnemonic,
+                        selectedNetworks: selectedNetworks,
                         hasWallet: true
                     },
                     (response) => {

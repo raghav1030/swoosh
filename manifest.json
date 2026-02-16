@@ -19,6 +19,7 @@
   },
   "host_permissions": [
     "https://api.devnet.solana.com/*",
-    "https://ethereum-sepolia-rpc.publicnode.com/*"
+    "https://ethereum-sepolia-rpc.publicnode.com/*",
+    "http://localhost:5173/*"
   ]
 }
