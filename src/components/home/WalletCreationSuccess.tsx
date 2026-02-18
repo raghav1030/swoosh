@@ -24,7 +24,6 @@ const WalletCreationSuccess = () => {
             const encryptedMnemonic = await CryptoJS.AES.encrypt(mnemonic, password).toString();
 
             if (window.chrome && window.chrome.runtime) {
-                console.log("hi", encryptedMnemonic)
                 window.chrome.runtime.sendMessage(
                     EXTENSION_ID,
                     {

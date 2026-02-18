@@ -20,7 +20,7 @@ const Welcome = ({ setStep, setIsNewWallet }: WelcomeProps) => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-around p-2 gap-8">
+        <div className="w-full h-full flex flex-col items-center justify-around p-2 gap-8">
             <h2 className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-3xl md:text-5xl tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-primary via-secondary to-secondary">
                 <span>Swoosh</span>
                 <span className="text-white text-lg font-thin">x</span>
@@ -31,7 +31,8 @@ const Welcome = ({ setStep, setIsNewWallet }: WelcomeProps) => {
                 <div className="relative h-44 w-44 rounded-full flex items-center justify-center">
                     <div className="absolute w-full h-full bg-primary/40 group-hover:bg-primary/60 blur-xl rounded-full transition-all duration-500" />
                     <span className="relative z-20 text-black dark:text-white">
-                        <WindIcon size={75} className="text-secondary/60 group-hover:text-secondary/80 transition-colors duration-300" />
+                        <WindIcon animateOnRender={true}
+ size={75} className="text-secondary/60 group-hover:text-secondary/80 transition-colors duration-300" />
                     </span>
                 </div>
             </div>

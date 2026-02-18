@@ -70,7 +70,7 @@ export default function App() {
 
     return (
         <div className="h-[600px] w-[400px] bg-black flex flex-col items-center justify-center relative overflow-hidden text-white">
-            <div className='flex-none w-full grid grid-cols-3 px-6 pt-6 pb-2 z-20'>
+            {status !== "locked" && <div className='flex-none w-full grid grid-cols-3 px-6 pt-6 pb-2 z-20'>
                 <div className="flex items-center justify-start">
                     {(
                         <Button
@@ -80,7 +80,7 @@ export default function App() {
                         </Button>
                     )}
                 </div>
-            </div>
+            </div>}
             <div className="relative z-10 w-full h-full flex flex-col">
                 {renderContent()}
             </div>

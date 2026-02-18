@@ -5,6 +5,10 @@ import { Network } from '@/lib/constants';
 
 export const unlockWallet = async (password: string): Promise<boolean> => {
     try {
+        if (!window.chrome || !window.chrome.storage) {
+            return false;
+        }
+
         const storageData = await chrome.storage.local.get(['encryptedMnemonic', 'selectedNetworks']);
         const { encryptedMnemonic, selectedNetworks } = storageData;
 
@@ -29,6 +33,7 @@ export const unlockWallet = async (password: string): Promise<boolean> => {
         store.setWallets(generatedWallets);
         store.setMnemonic(decryptedMnemonic);
         store.setSelectedNetworks(networksToGenerate);
+        store.setPassword(password);
 
         return true;
     } catch (error) {
@@ -51,9 +56,17 @@ export const checkWalletStatus = async (): Promise<'unlocked' | 'locked' | 'no_w
         return 'unlocked';
     }
 
-    const storageData = await chrome.storage.local.get(['hasWallet']);
-    if (storageData.hasWallet) {
-        return 'locked';
+    if (!window.chrome || !window.chrome.storage) {
+        return 'no_wallet';
+    }
+
+    try {
+        const storageData = await chrome.storage.local.get(['hasWallet']);
+        if (storageData.hasWallet) {
+            return 'locked';
+        }
+    } catch (error) {
+        return 'no_wallet';
     }
 
     return 'no_wallet';

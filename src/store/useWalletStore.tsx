@@ -60,12 +60,16 @@ export const useWalletStore = create<WalletState>()(
                 password: '',
                 mnemonic: '',
                 importedPrivateKey: '',
+                wallets: [],
             })
         }),
         {
             name: 'swoosh-wallet-storage',
             partialize: (state: WalletState) => ({
-                wallets: state.wallets,
+                step: state.step,
+                isNewWallet: state.isNewWallet,
+                selectedNetworks: state.selectedNetworks,
+                importWalletOption: state.importWalletOption,
             }),
         }
     )

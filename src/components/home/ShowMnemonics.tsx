@@ -77,7 +77,7 @@ const ShowMnemonics = ({ mnemonic, onNext }: { mnemonic: string; onNext: () => v
 
             <div className="w-full pt-2">
                 <Button
-                    className="w-full h-12 bg-secondary/95 hover:bg-secondary rounded-sm tracking-wide text-black font-bold text-lg transition-all"
+                    className="w-full h-12 bg-secondary/95 hover:bg-secondary rounded-sm tracking-wide text-black font-semibold text-lg transition-all"
                     size={'lg'}
                     onClick={() => onNext()}
                 >
