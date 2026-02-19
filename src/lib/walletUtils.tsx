@@ -10,16 +10,17 @@ export interface Keypair {
     publicKey: string;
 }
 
-const createEthKeypair = (mnemonic: string): Keypair => {
-    const wallet = HDNodeWallet.fromPhrase(mnemonic);
+const createEthKeypair = (mnemonic: string, accountIndex: number = 0): Keypair => {
+    const path = `m/44'/60'/0'/0/${accountIndex}`;
+    const wallet = HDNodeWallet.fromPhrase(mnemonic, "", path);
     return {
         publicKey: wallet.address,
         privateKey: wallet.privateKey
     };
 }
 
-const createSolKeypair = (seed: Buffer): Keypair => {
-    const path = `m/44'/501'/0'/0'`;
+const createSolKeypair = (seed: Buffer, accountIndex: number = 0): Keypair => {
+    const path = `m/44'/501'/${accountIndex}'/0'`;
     const derivedSeed = derivePath(path, seed.toString('hex')).key;
     const keyPair = nacl.sign.keyPair.fromSeed(derivedSeed);
 
@@ -41,14 +42,14 @@ const validateMnemonic = (mnemonic: string): boolean => {
     return bip.validateMnemonic(mnemonic);
 }
 
-const generateKeypair = ({ network, seed, mnemonic }: {
-    network: Network, seed: Buffer, mnemonic: string
+const generateKeypair = ({ network, seed, mnemonic, accountIndex = 0 }: {
+    network: Network, seed: Buffer, mnemonic: string, accountIndex?: number
 }): Keypair => {
     switch (network) {
         case Network.Ethereum:
-            return createEthKeypair(mnemonic);
+            return createEthKeypair(mnemonic, accountIndex);
         case Network.Solana:
-            return createSolKeypair(seed);
+            return createSolKeypair(seed, accountIndex);
         default:
             throw new Error("Unsupported network");
     }
@@ -89,14 +90,14 @@ const getWalletFromPrivateKey = (network: Network, privateKey: string): Keypair 
 }
 
 const keypairGenerators = {
-    fromMnemonic: (phrase: string, networks: Network[]) => {
+    fromMnemonic: (phrase: string, networks: Network[], accountIndex: number = 0) => {
         if (!phrase) throw new Error("Mnemonic is required but was undefined.");
         if (networks.length === 0) throw new Error("No networks selected.");
 
         const seed = generateSeed(phrase);
         return networks.map(network => ({
             network,
-            ...generateKeypair({ network, seed, mnemonic: phrase })
+            ...generateKeypair({ network, seed, mnemonic: phrase, accountIndex })
         }));
     },
 

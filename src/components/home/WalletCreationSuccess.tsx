@@ -14,7 +14,7 @@ const WalletCreationSuccess = () => {
     const [isSynced, setIsSynced] = useState(false);
 
     const handleSyncAndOpen = async () => {
-        const { mnemonic, password, selectedNetworks } = useWalletStore.getState();
+        const { selectedNetworks } = useWalletStore.getState();
         if (!mnemonic || !password) {
             console.error("Mnemonic or Password missing from store");
             return;

@@ -1,20 +1,36 @@
 import Dashboard from "@/components/extension/Dashboard"
 import Login from "@/components/extension/Login"
-import { Button } from "@/components/ui/button"
 import { ShootingStars } from "@/components/ui/shooting-stars"
 import { StarsBackground } from "@/components/ui/stars-background"
-import { checkWalletStatus, unlockWallet, lockWallet } from "@/lib/extensionUtils"
-import { ArrowLeft } from 'lucide-react'
 import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { checkWalletStatus, lockWallet, unlockWallet } from "@/lib/extensionUtils"
+import SelectWallet from "@/components/extension/SelectWallets"
 
 export default function App() {
-    // We removed 'no_wallet' from the state types since we handle it before setting state
-    const [status, setStatus] = useState<'loading' | 'unlocked' | 'locked'>('loading')
+    const [status, setStatus] = useState<'loading' | 'locked' | 'select_wallet' | 'dashboard'>('loading')
+    const [direction, setDirection] = useState(1)
+
+    const slideVariants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? '100%' : '-100%',
+            opacity: 1,
+        }),
+        center: {
+            zIndex: 1,
+            x: 0,
+            opacity: 1,
+        },
+        exit: (direction: number) => ({
+            zIndex: 0,
+            x: direction < 0 ? '100%' : '-100%',
+            opacity: 1,
+        })
+    }
 
     useEffect(() => {
         const initializeExtension = async () => {
             try {
-                console.log()
                 if (!window.chrome || !window.chrome.tabs) {
                     setStatus("locked")
                     return
@@ -27,7 +43,12 @@ export default function App() {
                     return
                 }
 
-                setStatus(currentStatus)
+                // If already unlocked in memory, jump straight to wallet selection
+                if (currentStatus === 'unlocked') {
+                    setStatus('select_wallet')
+                } else {
+                    setStatus('locked')
+                }
             } catch (error) {
                 chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') })
                 window.close()
@@ -40,14 +61,21 @@ export default function App() {
     const handleUnlock = async (password: string): Promise<boolean> => {
         const isSuccess = await unlockWallet(password)
         if (isSuccess) {
-            setStatus('unlocked')
+            setDirection(1) // Slide forward
+            setStatus('select_wallet')
             return true
         }
         return false
     }
 
+    const handleSelectWallet = () => {
+        setDirection(1) // Slide forward
+        setStatus('dashboard')
+    }
+
     const handleLock = async () => {
         await lockWallet()
+        setDirection(-1) // Slide backward to visually represent logging out
         setStatus('locked')
     }
 
@@ -55,14 +83,64 @@ export default function App() {
         switch (status) {
             case 'loading':
                 return (
-                    <div className="flex items-center justify-center h-full w-full">
+                    <motion.div
+                        key="loading"
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="absolute inset-0 flex items-center justify-center h-full w-full"
+                    >
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-                    </div>
+                    </motion.div>
                 )
             case 'locked':
-                return <Login onUnlock={handleUnlock} />
-            case 'unlocked':
-                return <Dashboard onLock={handleLock} />
+                return (
+                    <motion.div
+                        key="locked"
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full"
+                    >
+                        <Login onUnlock={handleUnlock} />
+                    </motion.div>
+                )
+            case 'select_wallet':
+                return (
+                    <motion.div
+                        key="select_wallet"
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full"
+                    >
+                        <SelectWallet onSelect={handleSelectWallet} />
+                    </motion.div>
+                )
+            case 'dashboard':
+                return (
+                    <motion.div
+                        key="dashboard"
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full"
+                    >
+                        <Dashboard onLock={handleLock} />
+                    </motion.div>
+                )
             default:
                 return null
         }
@@ -70,19 +148,11 @@ export default function App() {
 
     return (
         <div className="h-[600px] w-[400px] bg-black flex flex-col items-center justify-center relative overflow-hidden text-white">
-            {status !== "locked" && <div className='flex-none w-full grid grid-cols-3 px-6 pt-6 pb-2 z-20'>
-                <div className="flex items-center justify-start">
-                    {(
-                        <Button
-                            className="text-secondary hover:text-white cursor-pointer transition-colors"
-                        >
-                            <ArrowLeft size={28} />
-                        </Button>
-                    )}
-                </div>
-            </div>}
             <div className="relative z-10 w-full h-full flex flex-col">
-                {renderContent()}
+                {/* AnimatePresence handles the unmounting/mounting slide animations */}
+                <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                    {renderContent()}
+                </AnimatePresence>
             </div>
 
             <div className="absolute inset-0 z-0 pointer-events-none">

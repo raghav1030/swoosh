@@ -66,7 +66,7 @@ const Login = ({ onUnlock }: LoginProps) => {
       label: 'Appreciate Developer',
       icon: Heart,
       action: () => {
-        const text = encodeURIComponent("I really like Swoosh and its implementation! Kudos to @raghavgandhi14 🚀");
+        const text = encodeURIComponent("I really like Swoosh and its implementation! Kudos to @raghavgandhi14");
         window.open(`https://x.com/intent/tweet?text=${text}`, '_blank');
       }
     },

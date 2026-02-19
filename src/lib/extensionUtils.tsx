@@ -1,7 +1,8 @@
 import * as CryptoJS from 'crypto-js';
-import { useWalletStore } from '../store/useWalletStore';
+import { useWalletStore, Wallet } from '../store/useWalletStore';
 import { keypairGenerators } from '../lib/walletUtils';
 import { Network } from '@/lib/constants';
+import { scanForAccounts } from '@/lib/networkUtils';
 
 export const unlockWallet = async (password: string): Promise<boolean> => {
     try {
@@ -27,16 +28,46 @@ export const unlockWallet = async (password: string): Promise<boolean> => {
             ? selectedNetworks
             : [Network.Solana];
 
-        const generatedWallets = keypairGenerators.fromMnemonic(decryptedMnemonic, networksToGenerate);
+        let allActiveWallets: Wallet[] = [];
+
+        for (const network of networksToGenerate) {
+            let emptyWalletCount = 0;
+            let accountIndex = 0;
+            const GAP_LIMIT = 1;
+
+            while (emptyWalletCount < GAP_LIMIT) {
+                const generatedWallets = keypairGenerators.fromMnemonic(decryptedMnemonic, [network], accountIndex);
+                const currentWallet = generatedWallets[0];
+
+                if (accountIndex === 0) {
+                    allActiveWallets.push(currentWallet);
+                    accountIndex++;
+                    continue;
+                }
+
+                const scanResults = await scanForAccounts(currentWallet.publicKey);
+                const hasActiveAccounts = scanResults.some((r: any) => r.exists);
+
+                if (hasActiveAccounts) {
+                    allActiveWallets.push(currentWallet);
+                    emptyWalletCount = 0;
+                } else {
+                    emptyWalletCount++;
+                }
+
+                accountIndex++;
+            }
+        }
 
         const store = useWalletStore.getState();
-        store.setWallets(generatedWallets);
+        store.setWallets(allActiveWallets);
         store.setMnemonic(decryptedMnemonic);
         store.setSelectedNetworks(networksToGenerate);
         store.setPassword(password);
 
         return true;
     } catch (error) {
+        console.error("Unlock error:", error);
         return false;
     }
 };
