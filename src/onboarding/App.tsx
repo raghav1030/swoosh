@@ -206,13 +206,13 @@ function App() {
 
   return (
     <div className="h-screen w-full bg-black flex flex-col items-center justify-center relative overflow-hidden p-4">
-      <div className="relative z-10 flex flex-col border border-white/20 rounded-xl dark:border-white/20 w-full max-w-lg min-h-[600px] bg-black/40 backdrop-blur-sm shadow-2xl overflow-hidden">
+      <div className="relative z-10 flex flex-col border border-secondary/20 rounded-xl dark:border-secondary/20 w-full max-w-lg min-h-[600px] bg-black/40 backdrop-blur-sm shadow-2xl overflow-hidden">
         <div className='flex-none w-full grid grid-cols-3 px-6 pt-6 pb-2 z-20'>
           <div className="flex items-center justify-start">
             {step > 0 && step !== 4 && step !== 6 && step !== 9 && (
               <button
                 onClick={handleBack}
-                className="text-secondary hover:text-white cursor-pointer transition-colors"
+                className="text-secondary hover:text-secondary cursor-pointer transition-colors"
               >
                 <ArrowLeft size={28} />
               </button>

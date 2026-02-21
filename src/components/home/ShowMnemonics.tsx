@@ -40,8 +40,8 @@ const ShowMnemonics = ({ mnemonic, onNext }: { mnemonic: string; onNext: () => v
             <div
                 className={`grid grid-cols-3 gap-2 w-full p-4 rounded-md relative cursor-pointer transition-all duration-300 border
                     ${isHovered
-                        ? 'bg-background/5 border-white/20'
-                        : 'bg-background/0 border-white/10'
+                        ? 'bg-background/5 border-secondary/20'
+                        : 'bg-background/0 border-secondary/10'
                     }
                 `}
                 onClick={copyToClipboard}

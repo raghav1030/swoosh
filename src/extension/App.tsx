@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { checkWalletStatus, lockWallet, unlockWallet } from "@/lib/extensionUtils"
 import SelectWallet from "@/components/extension/SelectWallets"
+import AddAccountOverlay from "@/components/extension/Dashboard/AddAccountOverlay"
 
 export default function App() {
     const [status, setStatus] = useState<'loading' | 'locked' | 'select_wallet' | 'dashboard'>('loading')
@@ -43,7 +44,6 @@ export default function App() {
                     return
                 }
 
-                // If already unlocked in memory, jump straight to wallet selection
                 if (currentStatus === 'unlocked') {
                     setStatus('select_wallet')
                 } else {
@@ -61,7 +61,7 @@ export default function App() {
     const handleUnlock = async (password: string): Promise<boolean> => {
         const isSuccess = await unlockWallet(password)
         if (isSuccess) {
-            setDirection(1) // Slide forward
+            setDirection(1)
             setStatus('select_wallet')
             return true
         }
@@ -69,13 +69,13 @@ export default function App() {
     }
 
     const handleSelectWallet = () => {
-        setDirection(1) // Slide forward
+        setDirection(1)
         setStatus('dashboard')
     }
 
     const handleLock = async () => {
         await lockWallet()
-        setDirection(-1) // Slide backward to visually represent logging out
+        setDirection(-1)
         setStatus('locked')
     }
 
@@ -93,7 +93,7 @@ export default function App() {
                         transition={{ duration: 0.35, ease: "easeInOut" }}
                         className="absolute inset-0 flex items-center justify-center h-full w-full"
                     >
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary"></div>
                     </motion.div>
                 )
             case 'locked':
@@ -147,13 +147,14 @@ export default function App() {
     }
 
     return (
-        <div className="h-[600px] w-[400px] bg-black flex flex-col items-center justify-center relative overflow-hidden text-white">
+        <div className="h-[600px] w-[400px] bg-black flex flex-col items-center justify-center relative overflow-hidden text-secondary">
             <div className="relative z-10 w-full h-full flex flex-col">
-                {/* AnimatePresence handles the unmounting/mounting slide animations */}
                 <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                     {renderContent()}
                 </AnimatePresence>
             </div>
+
+            <AddAccountOverlay />
 
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <ShootingStars maxDelay={1} starWidth={15} />

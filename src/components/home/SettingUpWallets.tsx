@@ -38,7 +38,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete, isNewWallet, isProcess
         <div className='w-full flex flex-1 flex-col items-center  justify-between p-5 gap-12'>
             <div className="text-center space-y-2 animate-fade-in">
                 <h2 className="text-2xl font-semibold text-secondary tracking-wide">
-                    Setting up <span className="text-white font-bold">{currentNetwork}</span> Wallet
+                    Setting up <span className="text-secondary font-bold">{currentNetwork}</span> Wallet
                 </h2>
                 <p className="text-secondary/60 text-sm">
                     {isNewWallet ? "Generating" : "Importing"} keys and encrypting data...
@@ -48,7 +48,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete, isNewWallet, isProcess
             <div className="relative flex items-center justify-center w-32 h-32">
                 <div className="absolute inset-0 w-full h-full rounded-full border-4 border-secondary/20 border-t-secondary animate-spin" />
                 <div className="absolute inset-2 w-28 h-28 rounded-full border-2 border-secondary/10 border-b-secondary/50 animate-spin-slow-reverse" />
-                <div className="relative z-10 flex items-center justify-center w-20 h-20 bg-black/50 rounded-full backdrop-blur-sm border border-white/10 shadow-xl">
+                <div className="relative z-10 flex items-center justify-center w-20 h-20 bg-black/50 rounded-full backdrop-blur-sm border border-secondary/10 shadow-xl">
                     <img
                         src={networkIconRegistry[currentNetwork]}
                         alt={currentNetwork}
@@ -60,7 +60,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete, isNewWallet, isProcess
                 {selectedNetworks.map((_, idx) => (
                     <div
                         key={idx}
-                        className={`h-2 w-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/20'
+                        className={`h-2 w-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-secondary w-6' : 'bg-secondary/20'
                             }`}
                     />
                 ))}

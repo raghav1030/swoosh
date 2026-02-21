@@ -14,6 +14,7 @@ export interface AccountActivity {
 const checkSolanaActivity = async (publicKey: string): Promise<AccountActivity> => {
     try {
         try {
+            console.log(publicKey)
             new PublicKey(publicKey);
         } catch (e) {
             return { network: Network.Solana, exists: false, balance: 0 };
@@ -64,13 +65,14 @@ const checkEthereumActivity = async (publicKey: string): Promise<AccountActivity
 };
 
 export const scanForAccounts = async (publicKey: string, networks: Network[] = [Network.Solana, Network.Ethereum]) => {
+    console.log(networks, publicKey)
     const promises = networks.map(network => {
         if (network === Network.Solana) return checkSolanaActivity(publicKey);
         if (network === Network.Ethereum) return checkEthereumActivity(publicKey);
         return Promise.resolve(null);
     });
-
     const results = await Promise.all(promises);
+    console.log(results)
     return results.filter((r): r is AccountActivity => r !== null);
 };
 

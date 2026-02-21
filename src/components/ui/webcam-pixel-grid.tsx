@@ -428,11 +428,11 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
       {/* Error popup */}
       {error && showErrorPopup && (
         <div className="animate-in fade-in slide-in-from-top-2 fixed top-4 right-4 z-50 duration-300">
-          <div className="relative flex max-w-sm items-start gap-3 rounded-lg border border-white/10 bg-black/80 p-4 shadow-2xl backdrop-blur-xl">
+          <div className="relative flex max-w-sm items-start gap-3 rounded-lg border border-secondary/10 bg-black/80 p-4 shadow-2xl backdrop-blur-xl">
             {/* Close button */}
             <button
               onClick={() => setShowErrorPopup(false)}
-              className="absolute top-2 right-2 rounded-md p-1 text-white/40 transition-colors hover:bg-white/10 hover:text-white/70"
+              className="absolute top-2 right-2 rounded-md p-1 text-secondary/40 transition-colors hover:bg-secondary/10 hover:text-secondary/70"
             >
               <svg
                 className="h-4 w-4"
@@ -450,9 +450,9 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
             </button>
 
             {/* Camera icon */}
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-secondary/10">
               <svg
-                className="h-5 w-5 text-white/60"
+                className="h-5 w-5 text-secondary/60"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -468,15 +468,15 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
 
             {/* Content */}
             <div className="flex-1 pr-4">
-              <p className="text-sm font-medium text-white/90">
+              <p className="text-sm font-medium text-secondary/90">
                 Camera access needed
               </p>
-              <p className="mt-1 text-xs text-white/50">
+              <p className="mt-1 text-xs text-secondary/50">
                 Enable camera for the interactive background effect
               </p>
               <button
                 onClick={requestCameraAccess}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-white/10 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/20"
+                className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-secondary/10 px-3 py-1.5 text-xs font-medium text-secondary transition-colors hover:bg-secondary/20"
               >
                 <svg
                   className="h-3.5 w-3.5"
@@ -502,7 +502,7 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
       {error && !showErrorPopup && (
         <button
           onClick={() => setShowErrorPopup(true)}
-          className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white/50 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:bg-black/80 hover:text-white/80"
+          className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-secondary/10 bg-black/60 text-secondary/50 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:bg-black/80 hover:text-secondary/80"
           title="Camera access required"
         >
           <svg

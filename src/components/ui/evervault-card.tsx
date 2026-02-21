@@ -52,7 +52,7 @@ export const EvervaultCard = ({
         <div className="relative z-100 flex items-center justify-center">
           <div className="relative h-44 w-44  rounded-full flex items-center justify-center text-primary/20 font-bold text-4xl">
             <div className="absolute z-100 w-full h-full bg-primary/[0.4] dark:bg-black/[0.8] blur-sm rounded-full" />
-            <span className="dark:text-white text-black z-100">{text || icon}</span>
+            <span className="dark:text-secondary text-black z-100">{text || icon}</span>
           </div>
         </div>
       </div>
@@ -61,12 +61,12 @@ export const EvervaultCard = ({
 };
 
 export function CardPattern({ mouseX, mouseY, randomString }: any) {
-  let maskImage = useMotionTemplate`radial-gradient(250px at ${mouseX}px ${mouseY}px, white, transparent)`;
+  let maskImage = useMotionTemplate`radial-gradient(250px at ${mouseX}px ${mouseY}px, secondary, transparent)`;
   let style = { maskImage, WebkitMaskImage: maskImage };
 
   return (
     <div className="pointer-events-none">
-      <div className="absolute inset-0 rounded-2xl  [mask-image:linear-gradient(white,transparent)] group-hover/card:opacity-20"></div>
+      <div className="absolute inset-0 rounded-2xl  [mask-image:linear-gradient(secondary,transparent)] group-hover/card:opacity-20"></div>
       <motion.div
         className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500 to-blue-700 opacity-0  group-hover/card:opacity-100 backdrop-blur-xl transition duration-500"
         style={style}
@@ -75,7 +75,7 @@ export function CardPattern({ mouseX, mouseY, randomString }: any) {
         className="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay  group-hover/card:opacity-100"
         style={style}
       >
-        <p className="absolute inset-x-0 text-xs h-full break-words whitespace-pre-wrap text-white font-mono font-bold transition duration-500">
+        <p className="absolute inset-x-0 text-xs h-full break-words secondaryspace-pre-wrap text-secondary font-mono font-bold transition duration-500">
           {randomString}
         </p>
       </motion.div>

@@ -6,6 +6,8 @@ export interface Wallet {
     network: Network;
     publicKey: string;
     privateKey: string;
+    isImported?: boolean;
+    importSource?: string;
 }
 
 interface WalletState {
@@ -19,6 +21,7 @@ interface WalletState {
     importedPrivateKey: string;
 
     wallets: Wallet[];
+    activeAccountIndex: number;
 
     setStep: (step: number) => void;
     setIsNewWallet: (isNew: boolean) => void;
@@ -28,6 +31,7 @@ interface WalletState {
     setMnemonic: (phrase: string) => void;
     setImportedPrivateKey: (key: string) => void;
     setWallets: (wallets: Wallet[]) => void;
+    setActiveAccountIndex: (index: number) => void;
     resetFlow: () => void;
 }
 
@@ -42,6 +46,7 @@ export const useWalletStore = create<WalletState>()(
             mnemonic: '',
             importedPrivateKey: '',
             wallets: [],
+            activeAccountIndex: 0,
 
             setStep: (step: number) => set({ step }),
             setIsNewWallet: (isNewWallet: boolean) => set({ isNewWallet }),
@@ -51,6 +56,7 @@ export const useWalletStore = create<WalletState>()(
             setMnemonic: (mnemonic: string) => set({ mnemonic }),
             setImportedPrivateKey: (importedPrivateKey: string) => set({ importedPrivateKey }),
             setWallets: (wallets: Wallet[]) => set({ wallets }),
+            setActiveAccountIndex: (activeAccountIndex: number) => set({ activeAccountIndex }),
 
             resetFlow: () => set({
                 step: 0,
@@ -61,6 +67,7 @@ export const useWalletStore = create<WalletState>()(
                 mnemonic: '',
                 importedPrivateKey: '',
                 wallets: [],
+                activeAccountIndex: 0,
             })
         }),
         {

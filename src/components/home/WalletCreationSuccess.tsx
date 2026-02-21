@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { Button } from '../ui/button'
 import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import SocialCard from './SocialCard';
@@ -10,7 +9,7 @@ import * as CryptoJS from 'crypto-js'
 const EXTENSION_ID = "jjikigjnfeogeefjleigkanlbdefhhpm"
 
 const WalletCreationSuccess = () => {
-    const { mnemonic, password } = useWalletStore();
+    const { mnemonic, password, resetFlow } = useWalletStore();
     const [isSynced, setIsSynced] = useState(false);
 
     const handleSyncAndOpen = async () => {
@@ -40,10 +39,12 @@ const WalletCreationSuccess = () => {
                         }
                         if (response?.success) {
                             setIsSynced(true);
+                            resetFlow()
                         }
                     }
                 );
             }
+
         } catch (error) {
             console.log("hi2")
             console.log("Encryption failed:", error);

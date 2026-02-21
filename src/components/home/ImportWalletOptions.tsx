@@ -32,7 +32,7 @@ const ImportWalletOptions = ({
     return (
         <div className='w-full flex flex-1 flex-col items-center  justify-start p-5 gap-12'>
             <div className='flex flex-col items-center gap-4'>
-                <div className='flex items-center justify-center rounded-full size-20 bg-secondary/10 border border-white/5'>
+                <div className='flex items-center justify-center rounded-full size-20 bg-secondary/10 border border-secondary/5'>
                     <img
                         src={networkIconRegistry[selectedNetwork]}
                         alt={selectedNetwork}
@@ -58,8 +58,8 @@ const ImportWalletOptions = ({
                         <div
                             key={option}
                             onClick={() => handleOptionClick(option)}
-                            className='group flex items-center justify-between gap-4 p-2 rounded-xl border border-white/10 bg-white/5 
-                                     cursor-pointer transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-[1.02]'
+                            className='group flex items-center justify-between gap-4 p-2 rounded-xl border border-secondary/10 bg-secondary/5 
+                                     cursor-pointer transition-all duration-300 hover:bg-secondary/10 hover:border-secondary/20 hover:scale-[1.02]'
                         >
                             <div className='flex items-center justify-start gap-3'>
 

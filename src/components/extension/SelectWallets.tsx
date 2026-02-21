@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { CheckCircle2, Wallet as WalletIcon, ChevronRight } from 'lucide-react'
+import { Check, Wallet as WalletIcon, ChevronRight } from 'lucide-react'
 import { useWalletStore } from '@/store/useWalletStore'
+import { Network, networkIconRegistry } from "@/lib/constants"
 
 interface WalletsProps {
   onSelect: () => void
@@ -17,10 +18,17 @@ const SelectWallet = ({ onSelect }: WalletsProps) => {
   }
 
   const handleContinue = () => {
-    // If you add an setActiveWallet function to your store later, you can call it here:
-    // useWalletStore.getState().setActiveWallet(wallets[selectedIndex])
+    useWalletStore.setState({ activeAccountIndex: selectedIndex })
     onSelect()
   }
+
+  const groupedWallets = wallets.reduce((acc, wallet, index) => {
+    if (!acc[wallet.network]) {
+      acc[wallet.network] = [];
+    }
+    acc[wallet.network].push({ ...wallet, originalIndex: index });
+    return acc;
+  }, {} as Record<string, (typeof wallets[0] & { originalIndex: number })[]>);
 
   return (
     <div className='w-full h-full relative flex flex-col items-center justify-start p-6 pt-12'>
@@ -28,7 +36,7 @@ const SelectWallet = ({ onSelect }: WalletsProps) => {
         <div className="h-16 w-16 bg-secondary/10 rounded-full flex items-center justify-center mb-2">
           <WalletIcon size={32} className="text-secondary" />
         </div>
-        <h2 className="text-3xl font-semibold text-white tracking-wide">
+        <h2 className="text-3xl font-semibold text-secondary tracking-wide">
           Your Wallets
         </h2>
         <p className="text-secondary/70 text-sm">
@@ -36,42 +44,70 @@ const SelectWallet = ({ onSelect }: WalletsProps) => {
         </p>
       </div>
 
-      <div className='w-full flex-1 overflow-y-auto flex flex-col gap-3 pr-2 custom-scrollbar'>
+      <div className='w-full flex-1 overflow-y-auto flex flex-col gap-5 pr-2 custom-scrollbar'>
         {wallets.length === 0 ? (
           <div className="flex-1 flex items-center justify-center text-secondary/50">
             No wallets found.
           </div>
         ) : (
-          wallets.map((wallet, index) => (
-            <div
-              key={`${wallet.network}-${wallet.publicKey}-${index}`}
-              onClick={() => setSelectedIndex(index)}
-              className={`group flex items-center justify-between gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:scale-[1.02] ${selectedIndex === index
-                  ? 'bg-secondary/10 border-secondary shadow-[0_0_15px_rgba(var(--secondary),0.1)]'
-                  : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
-                }`}
-            >
-              <div className='flex items-center justify-start gap-4'>
-                <div className={`flex items-center justify-center h-10 w-10 rounded-full transition-colors duration-300 ${selectedIndex === index ? 'bg-secondary text-black' : 'bg-white/10 text-secondary group-hover:bg-white/20'
-                  }`}>
-                  <WalletIcon size={20} />
-                </div>
-                <div className='flex flex-col items-start'>
-                  <span className={`text-lg font-semibold transition-colors ${selectedIndex === index ? 'text-secondary' : 'text-white'
-                    }`}>
-                    Account {index + 1}
-                  </span>
-                  <span className='text-sm text-secondary/60 font-mono tracking-wider'>
-                    {truncateAddress(wallet.publicKey)}
-                  </span>
-                </div>
-              </div>
+          Object.entries(groupedWallets).map(([network, networkWallets]) => (
+            <div key={network} className="flex flex-col gap-2">
+              <h3 className="text-secondary/50 text-xs font-semibold uppercase tracking-wider px-1">
+                {network} Wallets
+              </h3>
 
-              {selectedIndex === index ? (
-                <CheckCircle2 className='text-secondary transition-colors duration-300' size={24} />
-              ) : (
-                <ChevronRight className='text-secondary/50 group-hover:text-secondary/90 transition-colors duration-300' size={24} />
-              )}
+              <div className="flex flex-col gap-2">
+                {networkWallets?.map((wallet) => {
+                  const isSelected = selectedIndex === wallet.originalIndex;
+                  const IconComponent = networkIconRegistry[wallet.network] as any;
+
+                  return (
+                    <div
+                      key={`${wallet.network}-${wallet.publicKey}-${wallet.originalIndex}`}
+                      onClick={() => setSelectedIndex(wallet.originalIndex)}
+                      className={`group flex items-center justify-between gap-3 p-3 rounded-sm border cursor-pointer transition-colors duration-150 ${isSelected
+                        ? 'bg-secondary/10 border-secondary'
+                        : 'bg-secondary/5 border-secondary/10 hover:bg-secondary/10 hover:border-secondary/20'
+                        }`}
+                    >
+                      <div className='flex items-center justify-start gap-3'>
+                        <div className={`flex items-center justify-center  rounded-full transition-colors duration-150 '
+                          }`}>
+                          {IconComponent ? (
+                            typeof IconComponent === 'string' ? (
+                              <img src={IconComponent} alt={wallet.network} className="w-8 h-8" />
+                            ) : (
+                              <IconComponent className="w-4 h-4" />
+                            )
+                          ) : (
+                            <WalletIcon size={16} />
+                          )}
+                        </div>
+                        <div className='flex flex-col items-start'>
+                          <span className={`text-base font-medium transition-colors ${isSelected ? 'text-secondary' : 'text-secondary/90'
+                            }`}>
+                            Account {wallet.originalIndex + 1}
+                          </span>
+                          <span className='text-xs text-secondary/50 font-mono tracking-wider'>
+                            {truncateAddress(wallet.publicKey)}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className={`text-sm font-medium ${isSelected ? 'text-secondary' : 'text-secondary/70'}`}>
+                          $0.00
+                        </span>
+                        {isSelected ? (
+                          <Check className='text-secondary' size={18} />
+                        ) : (
+                          <ChevronRight className='text-secondary/30 group-hover:text-secondary/50' size={18} />
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           ))
         )}

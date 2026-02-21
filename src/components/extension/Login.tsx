@@ -100,7 +100,7 @@ const Login = ({ onUnlock }: LoginProps) => {
           <h2 className="text-3xl md:text-5xl tracking-tight font-medium bg-clip-text text-transparent bg-linear-to-b from-primary via-secondary to-secondary z-20">
             <span>Swoosh</span>
           </h2>
-          <span className="relative z-20 text-black dark:text-white">
+          <span className="relative z-20 text-black dark:text-secondary">
             <WindIcon
               size={75}
               animateOnRender={true}
@@ -195,7 +195,7 @@ const Login = ({ onUnlock }: LoginProps) => {
         />
         <div className="w-full bg-black/95 backdrop-blur-md rounded-t-3xl flex flex-col items-center shadow-2xl gap-4 p-4">
           <div className="w-full flex flex-col items-center justify-center">
-            <div className="w-12 h-1.5 bg-white/20 rounded-full" />
+            <div className="w-12 h-1.5 bg-secondary/20 rounded-full" />
           </div>
 
           <div className='w-full '>
@@ -207,7 +207,7 @@ const Login = ({ onUnlock }: LoginProps) => {
                   <div
                     key={option.id}
                     onClick={option.action}
-                    className='group flex items-center justify-between gap-4 p-2 rounded-xl border border-white/10 bg-white/5 cursor-pointer transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-[1.02]'
+                    className='group flex items-center justify-between gap-4 p-2 rounded-xl border border-secondary/10 bg-secondary/5 cursor-pointer transition-all duration-300 hover:bg-secondary/10 hover:border-secondary/20 hover:scale-[1.02]'
                   >
                     <div className='flex items-center justify-start gap-3'>
                       <div className='flex items-center justify-center h-10 w-10 rounded-full bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-black transition-colors duration-300'>
@@ -239,7 +239,7 @@ const Login = ({ onUnlock }: LoginProps) => {
 
         <div className="w-full bg-black/90 backdrop-blur-lg rounded-t-3xl flex flex-col items-center shadow-2xl gap-6 px-4 pt-4 pb-8">
           <div className="w-full flex flex-col items-center">
-            <div className="w-12 h-1.5 bg-white/20 rounded-full" />
+            <div className="w-12 h-1.5 bg-secondary/20 rounded-full" />
           </div>
 
           <div className="flex flex-col items-center justify-center max-w-sm gap-4 text-center">
@@ -247,7 +247,7 @@ const Login = ({ onUnlock }: LoginProps) => {
               <AlertTriangle size={32} className="text-red-500" />
             </div>
 
-            <h2 className="text-2xl font-semibold text-white tracking-wide">
+            <h2 className="text-2xl font-semibold text-secondary tracking-wide">
               Reset Wallet
             </h2>
 
@@ -262,13 +262,13 @@ const Login = ({ onUnlock }: LoginProps) => {
 
           <div className="w-full flex flex-col gap-3">
             <Button
-              className="w-full h-12 bg-red-500 hover:bg-red-600 text-white font-semibold text-lg rounded-sm"
+              className="w-full h-12 bg-red-500 hover:bg-red-600 text-secondary font-semibold text-lg rounded-sm"
               onClick={handleResetWallet}
             >
               Reset Extension
             </Button>
             <Button
-              className="w-full h-12 bg-transparent hover:bg-white/5 text-secondary font-semibold text-lg rounded-sm border border-secondary/20"
+              className="w-full h-12 bg-transparent hover:bg-secondary/5 text-secondary font-semibold text-lg rounded-sm border border-secondary/20"
               onClick={() => setShowForgotPassword(false)}
             >
               Cancel

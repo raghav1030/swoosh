@@ -42,7 +42,7 @@ const EnterPrivateKey = ({ onNext, network }: EnterPrivateKeyProps) => {
     return (
         <div className='w-full flex flex-1 flex-col items-center  justify-between p-5 gap-12'>
             <div className='flex flex-col items-center gap-4'>
-                <div className='flex items-center justify-center rounded-full size-20 bg-secondary/10 border border-white/5'>
+                <div className='flex items-center justify-center rounded-full size-20 bg-secondary/10 border border-secondary/5'>
                     <Key className='size-11 rounded-full text-secondary' />
                 </div>
 
@@ -64,7 +64,7 @@ const EnterPrivateKey = ({ onNext, network }: EnterPrivateKeyProps) => {
                         className={`w-full h-24 max-h-24 overflow-y-auto bg-background/5 border rounded-sm p-4 text-sm text-secondary placeholder:text-secondary/20 focus:outline-none transition-colors resize-none
                                     ${isTouched && !isValid && privateKey
                                 ? 'border-red-500/50 focus:border-red-500'
-                                : 'border-white/10 focus:border-secondary/50'
+                                : 'border-secondary/10 focus:border-secondary/50'
                             }
                         `}
                     />

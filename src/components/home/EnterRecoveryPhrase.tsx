@@ -106,7 +106,7 @@ const EnterRecoveryPhrase = ({ onNext }: { onNext: (phrase: string) => void }) =
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 onPaste={handleInputPaste}
                                 onKeyDown={(e) => handleKeyDown(e, index)}
-                                className="w-full h-10 bg-background/10 border border-white/10 rounded-sm pl-7 pr-2 text-sm text-secondary placeholder:text-secondary/20 focus:outline-none focus:border-secondary/50 focus:bg-background/20 transition-all"
+                                className="w-full h-10 bg-background/10 border border-secondary/10 rounded-sm pl-7 pr-2 text-sm text-secondary placeholder:text-secondary/20 focus:outline-none focus:border-secondary/50 focus:bg-background/20 transition-all"
                             />
                         </div>
                     ))}
