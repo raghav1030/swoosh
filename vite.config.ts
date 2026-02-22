@@ -32,12 +32,12 @@ export default defineConfig({
   legacy: {
     skipWebSocketTokenCheck: true,
   },
-  cors: {
-    origin: [
-      "chrome-extension://jjikigjnfeogeefjleigkanlbdefhhpm",
-      "http://localhost:5173"
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  },
+  // cors: {
+  //   origin: [
+  //     "chrome-extension://jjikigjnfeogeefjleigkanlbdefhhpm",
+  //     "http://localhost:5173"
+  //   ],
+  //   methods: ["GET", "POST"],
+  //   allowedHeaders: ["Content-Type", "Authorization"],
+  // },
 })

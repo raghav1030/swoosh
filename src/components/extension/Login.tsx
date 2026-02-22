@@ -39,12 +39,19 @@ const Login = ({ onUnlock }: LoginProps) => {
 
   const handleResetWallet = async () => {
     try {
-      if (window.chrome && window.chrome.runtime) {
-        await chrome.storage.local.clear()
-        chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') })
+      const isExtension = typeof window !== 'undefined' &&
+        window.chrome &&
+        window.chrome.runtime &&
+        window.chrome.runtime.id &&
+        window.chrome.storage;
+
+      if (isExtension) {
+        await window.chrome.storage.local.clear()
+        window.chrome.tabs.create({ url: window.chrome.runtime.getURL('index.html') })
         window.close()
       } else {
-        alert("Local Dev Mode: If this were the extension, it would wipe the storage and open onboarding.html right now.")
+        localStorage.clear()
+        window.location.reload()
       }
     } catch (error) {
       console.error("Failed to reset wallet:", error)
@@ -142,7 +149,7 @@ const Login = ({ onUnlock }: LoginProps) => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className=" absolute right-3 top-1/2 -translate-y-1/2 text-secondary/50 hover:text-secondary focus:outline-none"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary/50 hover:text-secondary focus:outline-none"
                     >
                       {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                     </button>
@@ -203,7 +210,6 @@ const Login = ({ onUnlock }: LoginProps) => {
 
           <div className='w-full '>
             <div className="w-full bg-secondary/10 backdrop-blur-lg flex flex-col gap-3 p-4 rounded-3xl">
-
               {menuOptions.map((option) => {
                 const Icon = option.icon
                 return (
@@ -227,7 +233,6 @@ const Login = ({ onUnlock }: LoginProps) => {
                 )
               })}
             </div>
-
           </div>
         </div>
       </div>
