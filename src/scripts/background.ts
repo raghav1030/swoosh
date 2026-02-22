@@ -7,6 +7,14 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
             selectedNetworks,
             hasWallet: true
         }, () => {
+            chrome.windows.create({
+                url: chrome.runtime.getURL("index.html"),
+                type: "popup",
+                width: 415,
+                height: 640,
+                focused: true
+            });
+
             sendResponse({ success: true });
         });
 

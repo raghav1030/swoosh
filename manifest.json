@@ -10,17 +10,15 @@
     "service_worker": "src/scripts/background.ts",
     "type": "module"
   },
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "activeTab", "tabs", "windows"],
   "externally_connectable": {
-    "matches": ["http://localhost:5173/*"]
-  },
-  "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval' http://localhost:5173; object-src 'self';"
+    "matches": ["http://localhost:5173/*", "https://swoosh-black.vercel.app/*"]
   },
   "host_permissions": [
     "https://api.devnet.solana.com/*",
     "https://ethereum-sepolia-rpc.publicnode.com/*",
-    "http://localhost:5173/*"
+    "http://localhost:5173/*",
+    "https://swoosh-black.vercel.app/*"
   ],
   "commands": {
     "_execute_action": {

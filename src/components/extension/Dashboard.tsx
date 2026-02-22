@@ -229,14 +229,14 @@ const Dashboard = ({ onLock }: DashboardProps) => {
                   <div className="grid grid-cols-3 items-center justify-center w-full gap-4 max-w-[270px]">
                     <Button
                       onClick={() => setIsReceiveOpen(true)}
-                      className="flex flex-col items-center justify-center flex-1 h-15 gap-1 rounded-xl bg-taupe-950/90 hover:bg-taupe-950/70 text-white border border-white/5 font-semibold text-sm transition-transform"
+                      className="flex flex-col items-center justify-center flex-1 h-15 gap-1 rounded-xl bg-taupe-950/90 hover:bg-taupe-950/50 text-white border border-white/5 font-semibold text-sm transition-transform"
                     >
                       <ArrowDownFromLine size={20} />
                       <span>Receive</span>
                     </Button>
                     <Button
                       onClick={() => setIsSendOpen(true)}
-                      className="flex flex-col items-center justify-center flex-1 h-15 gap-1 rounded-xl bg-taupe-950/90 hover:bg-taupe-950/70 text-white border border-white/5 font-semibold text-sm transition-transform"
+                      className="flex flex-col items-center justify-center flex-1 h-15 gap-1 rounded-xl bg-taupe-950/90 hover:bg-taupe-950/50 text-white border border-white/5 font-semibold text-sm transition-transform"
                     >
                       <ArrowUpFromLine size={20} />
                       <span>Send</span>
