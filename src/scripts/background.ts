@@ -7,11 +7,9 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
             selectedNetworks,
             hasWallet: true
         }, () => {
-            chrome.tabs.create({
-                url: chrome.runtime.getURL("index.html")
-            });
             sendResponse({ success: true });
         });
+
         return true;
     }
 });

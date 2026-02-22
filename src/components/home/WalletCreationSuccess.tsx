@@ -98,7 +98,7 @@ const WalletCreationSuccess = () => {
                     size={'lg'}
                     onClick={handleSyncAndOpen}
                 >
-                    {isSynced ? "Synced Successfully" : "Open Swoosh"}
+                    {isSynced ? "Synced Successfully" : "Sync Wallet"}
                     <WindIcon size={75} className="text-black/60 group-hover:text-black transition-colors duration-300" />
                 </Button>
             </div>

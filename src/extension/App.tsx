@@ -50,6 +50,7 @@ export default function App() {
                     setStatus('locked')
                 }
             } catch (error) {
+                console.error("Initialization error:", error)
                 chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') })
                 window.close()
             }
