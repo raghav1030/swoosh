@@ -147,7 +147,7 @@ export default function App() {
     }
 
     return (
-        <div className="h-[600px] w-[400px] bg-black flex flex-col items-center justify-center relative overflow-hidden text-secondary">
+        <div className="h-[600px] w-[400px] bg-taupe-950 flex flex-col items-center justify-center relative overflow-hidden text-secondary">
             <div className="relative z-10 w-full h-full flex flex-col">
                 <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                     {renderContent()}

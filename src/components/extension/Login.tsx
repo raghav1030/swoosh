@@ -133,13 +133,16 @@ const Login = ({ onUnlock }: LoginProps) => {
                         field.handleChange(e.target.value)
                       }}
                       type={showPassword ? "text" : "password"}
-                      className={`w-full h-12 bg-background/12 hover:bg-background/10 rounded-sm px-4 pr-10 text-secondary placeholder:text-secondary/50 placeholder:text-lg placeholder:font-normal tracking-wide focus:border-secondary ${authError ? 'border-red-500/50 focus-visible:ring-red-500/50' : ''}`}
                       placeholder="Password"
+                      className={`w-full h-12 bg-background/12 hover:bg-background/10 rounded-sm px-4 pr-10 text-secondary placeholder:text-secondary/50 placeholder:text-lg placeholder:font-normal tracking-wide focus-visible:outline-none focus-visible:border-secondary focus-visible:ring-secondary/50 transition-all ${authError
+                        ? 'border-red-500/50 focus-visible:ring-red-500/50 focus-visible:border-red-500'
+                        : 'border-transparent'
+                        }`}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="focus-visible:ring-primary/50 absolute right-3 top-1/2 -translate-y-1/2 text-secondary/50 hover:text-secondary focus:outline-none"
+                      className=" absolute right-3 top-1/2 -translate-y-1/2 text-secondary/50 hover:text-secondary focus:outline-none"
                     >
                       {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                     </button>
@@ -193,7 +196,7 @@ const Login = ({ onUnlock }: LoginProps) => {
           className="flex-1 w-full cursor-pointer"
           onClick={() => setShowMenu(false)}
         />
-        <div className="w-full bg-black/95 backdrop-blur-md rounded-t-3xl flex flex-col items-center shadow-2xl gap-4 p-4">
+        <div className="w-full bg-taupe-950/95 backdrop-blur-md rounded-t-3xl flex flex-col items-center shadow-2xl gap-4 p-4">
           <div className="w-full flex flex-col items-center justify-center">
             <div className="w-12 h-1.5 bg-secondary/20 rounded-full" />
           </div>
@@ -237,7 +240,7 @@ const Login = ({ onUnlock }: LoginProps) => {
           onClick={() => setShowForgotPassword(false)}
         />
 
-        <div className="w-full bg-black/90 backdrop-blur-lg rounded-t-3xl flex flex-col items-center shadow-2xl gap-6 px-4 pt-4 pb-8">
+        <div className="w-full bg-taupe-950/90 backdrop-blur-lg rounded-t-3xl flex flex-col items-center shadow-2xl gap-6 px-4 pt-4 pb-8">
           <div className="w-full flex flex-col items-center">
             <div className="w-12 h-1.5 bg-secondary/20 rounded-full" />
           </div>

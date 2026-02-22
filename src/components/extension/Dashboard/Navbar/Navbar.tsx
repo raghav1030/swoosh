@@ -1,12 +1,6 @@
-import React from 'react'
-import ProfileDropdown from './ProfileDropdown'
-import NavbarButtonGroup from './NavbarButtonGroup'
-
-interface Wallet {
-    network: string;
-    publicKey: string;
-    privateKey: string;
-}
+import { Wallet } from '@/store/useWalletStore'
+import ProfileDropdown from '../ProfileDropdown';
+import NavbarButtonGroup from './NavbarButtonGroup';
 
 interface NavbarProps {
     wallets: Wallet[];
@@ -14,19 +8,27 @@ interface NavbarProps {
     setActiveAccountIndex: (index: number) => void;
     activeWallet: Wallet;
     onLock: () => void;
+    onOpenSettings: () => void;
 }
 
-const Navbar = ({ wallets, activeAccountIndex, setActiveAccountIndex, activeWallet, onLock }: NavbarProps) => {
+const Navbar = ({
+    wallets,
+    activeAccountIndex,
+    setActiveAccountIndex,
+    onLock,
+    onOpenSettings,
+    activeWallet,
+}: NavbarProps) => {
     return (
         <div className='w-full h-16 px-4 flex items-center justify-between shrink-0 relative'>
-            <div className="absolute left-4 z-10">
-                <ProfileDropdown
-                    wallets={wallets}
-                    activeAccountIndex={activeAccountIndex}
-                    setActiveAccountIndex={setActiveAccountIndex}
-                    onLock={onLock}
-                />
-            </div>
+
+            <ProfileDropdown
+                wallets={wallets}
+                activeAccountIndex={activeAccountIndex}
+                setActiveAccountIndex={setActiveAccountIndex}
+                onLock={onLock}
+                onOpenSettings={onOpenSettings}
+            />
 
             <div className="flex-1 flex items-center justify-center w-full z-0">
                 <NavbarButtonGroup

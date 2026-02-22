@@ -14,18 +14,18 @@ export const EvervaultCard = ({
   className?: string;
   icon?: React.ReactNode
 }) => {
-  let mouseX = useMotionValue(0);
-  let mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const [randomString, setRandomString] = useState("");
 
   useEffect(() => {
-    let str = generateRandomString(1500);
+    const str = generateRandomString(1500);
     setRandomString(str);
   }, []);
 
   function onMouseMove({ currentTarget, clientX, clientY }: any) {
-    let { left, top } = currentTarget.getBoundingClientRect();
+    const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
 
@@ -51,7 +51,7 @@ export const EvervaultCard = ({
         />
         <div className="relative z-100 flex items-center justify-center">
           <div className="relative h-44 w-44  rounded-full flex items-center justify-center text-primary/20 font-bold text-4xl">
-            <div className="absolute z-100 w-full h-full bg-primary/[0.4] dark:bg-black/[0.8] blur-sm rounded-full" />
+            <div className="absolute z-100 w-full h-full bg-primary/[0.4] dark:bg-taupe-950/[0.8] blur-sm rounded-full" />
             <span className="dark:text-secondary text-black z-100">{text || icon}</span>
           </div>
         </div>
@@ -61,8 +61,8 @@ export const EvervaultCard = ({
 };
 
 export function CardPattern({ mouseX, mouseY, randomString }: any) {
-  let maskImage = useMotionTemplate`radial-gradient(250px at ${mouseX}px ${mouseY}px, secondary, transparent)`;
-  let style = { maskImage, WebkitMaskImage: maskImage };
+  const maskImage = useMotionTemplate`radial-gradient(250px at ${mouseX}px ${mouseY}px, secondary, transparent)`;
+  const style = { maskImage, WebkitMaskImage: maskImage };
 
   return (
     <div className="pointer-events-none">

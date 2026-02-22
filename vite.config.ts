@@ -14,7 +14,6 @@ export default defineConfig({
     crx({ manifest }),
   ],
   server: {
-    // This ensures that when you visit /onboarding.html, Vite serves it
     open: true,
   },
   resolve: {

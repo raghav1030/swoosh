@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import { Copy, Check, ChevronDown, PlusCircle, Wallet as WalletIcon, Plus } from 'lucide-react'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { networkIconRegistry } from "@/lib/constants"
-import { useAddAccountUI } from './AddAccountOverlay'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,6 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Wallet } from '@/store/useWalletStore'
+import { useAddAccountUI } from '../AddAccountOverlay'
 
 interface NavbarButtonGroupProps {
     wallets: Wallet[];
@@ -55,7 +55,6 @@ const NavbarButtonGroup = ({ wallets, activeAccountIndex, setActiveAccountIndex,
         .map((w, index) => ({ ...w, originalIndex: index }))
         .filter(w => w.network === activeWallet?.network)
 
-    // Group wallets by their import source
     const groupedBySource = currentNetworkWallets.reduce((acc, wallet) => {
         const source = wallet.importSource || 'Primary Phrase';
         if (!acc[source]) acc[source] = [];
@@ -81,7 +80,7 @@ const NavbarButtonGroup = ({ wallets, activeAccountIndex, setActiveAccountIndex,
                         )}
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-black/95 backdrop-blur-md border-secondary/10 text-secondary">
+                <DropdownMenuContent align="start" className="w-48 bg-taupe-950/95 backdrop-blur-md border-secondary/10 text-secondary">
                     <DropdownMenuLabel className="text-xs text-secondary/50 uppercase tracking-wider">
                         Select Network
                     </DropdownMenuLabel>
@@ -131,11 +130,11 @@ const NavbarButtonGroup = ({ wallets, activeAccountIndex, setActiveAccountIndex,
                         variant="outline"
                         className="bg-secondary/5 border-secondary/10 hover:bg-secondary/10 hover:text-secondary flex items-center gap-2"
                     >
-                        Account {activeAccountIndex + 1}
+                        {activeWallet?.name || `Account ${activeAccountIndex + 1}`}
                         <ChevronDown size={14} className="text-secondary/50" />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-64 max-h-[400px] overflow-y-auto custom-scrollbar bg-black/95 backdrop-blur-md border-secondary/10 text-secondary">
+                <DropdownMenuContent align="start" className="w-64 max-h-[400px] overflow-y-auto custom-scrollbar bg-taupe-950/95 backdrop-blur-md border-secondary/10 text-secondary">
                     {Object.entries(groupedBySource).map(([source, sourceWallets], groupIndex) => (
                         <React.Fragment key={source}>
                             {groupIndex !== 0 && <DropdownMenuSeparator className="bg-secondary/10" />}
@@ -156,7 +155,7 @@ const NavbarButtonGroup = ({ wallets, activeAccountIndex, setActiveAccountIndex,
                                                 <WalletIcon size={14} className={isSelected ? 'text-secondary' : 'text-secondary/70'} />
                                                 <div className='flex flex-col items-start'>
                                                     <span className="text-sm font-medium">
-                                                        Account {wallet.originalIndex + 1}
+                                                        {wallet.name || `Account ${wallet.originalIndex + 1}`}
                                                     </span>
                                                     <span className='text-xs text-secondary/50 font-mono tracking-wider'>
                                                         {truncateAddress(wallet.publicKey)}

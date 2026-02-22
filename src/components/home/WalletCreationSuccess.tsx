@@ -1,28 +1,29 @@
 import { Button } from '../ui/button'
-import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
-import SocialCard from './SocialCard';
-import { WindIcon } from '../ui/wind';
-import { useWalletStore } from '../../store/useWalletStore';
-import { useState } from 'react';
+import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6"
+import SocialCard from './SocialCard'
+import { WindIcon } from '../ui/wind'
+import { useWalletStore } from '../../store/useWalletStore'
+import { useState, useEffect, useCallback } from 'react'
 import * as CryptoJS from 'crypto-js'
 
 const EXTENSION_ID = "jjikigjnfeogeefjleigkanlbdefhhpm"
 
 const WalletCreationSuccess = () => {
-    const { mnemonic, password, resetFlow } = useWalletStore();
-    const [isSynced, setIsSynced] = useState(false);
+    const { mnemonic, password, resetFlow } = useWalletStore()
+    const [isSynced, setIsSynced] = useState(false)
 
-    const handleSyncAndOpen = async () => {
-        const { selectedNetworks } = useWalletStore.getState();
+    const handleSyncAndOpen = useCallback(async () => {
+        const { selectedNetworks } = useWalletStore.getState()
+
         if (!mnemonic || !password) {
-            console.error("Mnemonic or Password missing from store");
-            return;
+            console.error("Mnemonic or Password missing from store")
+            return
         }
 
         try {
-            const encryptedMnemonic = await CryptoJS.AES.encrypt(mnemonic, password).toString();
+            const encryptedMnemonic = CryptoJS.AES.encrypt(mnemonic, password).toString()
 
-            if (window.chrome && window.chrome.runtime) {
+            if (typeof window !== 'undefined' && window.chrome && window.chrome.runtime && window.chrome.runtime.id) {
                 window.chrome.runtime.sendMessage(
                     EXTENSION_ID,
                     {
@@ -32,31 +33,53 @@ const WalletCreationSuccess = () => {
                         hasWallet: true
                     },
                     (response) => {
-                        console.log("hi3")
                         if (window.chrome.runtime.lastError) {
-                            console.error("Sync error:", window.chrome.runtime.lastError.message);
-                            return;
+                            console.error("Sync error:", window.chrome.runtime.lastError.message)
+                            return
                         }
                         if (response?.success) {
-                            setIsSynced(true);
+                            setIsSynced(true)
                             resetFlow()
                         }
                     }
+                )
+            } else {
+                localStorage.setItem('swoosh_web_encrypted_mnemonic', encryptedMnemonic)
+                setIsSynced(true)
+                resetFlow()
+
+                const width = 400;
+                const height = 600;
+                const left = window.screen.width - width - 20;
+                const top = 20;
+
+                window.open(
+                    window.location.origin,
+                    'SwooshWallet',
+                    `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=no,status=no`
                 );
             }
-
         } catch (error) {
-            console.log("hi2")
-            console.log("Encryption failed:", error);
+            console.error("Encryption failed:", error)
         }
-    };
+    }, [mnemonic, password, resetFlow])
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.shiftKey && event.altKey && (event.key === 's' || event.key === 'S')) {
+                event.preventDefault()
+                handleSyncAndOpen()
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [handleSyncAndOpen])
 
     return (
         <div className='w-full h-full flex flex-col justify-between p-2 gap-4'>
-
             <div className='w-full flex flex-col items-center justify-center gap-4 text-center flex-grow'>
                 <div className='w-full flex flex-col gap-2 justify-center items-center'>
-
                     <h2 className='text-2xl font-semibold text-secondary tracking-wide'>You're all good!</h2>
                     <div className='text-secondary/80 max-w-xs tracking-wide flex items-center justify-center gap-1'>
                         Open Swoosh with <span className='text-blue-400 font-semibold'> Shift + Alt + S</span>

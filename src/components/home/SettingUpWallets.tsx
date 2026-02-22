@@ -48,7 +48,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete, isNewWallet, isProcess
             <div className="relative flex items-center justify-center w-32 h-32">
                 <div className="absolute inset-0 w-full h-full rounded-full border-4 border-secondary/20 border-t-secondary animate-spin" />
                 <div className="absolute inset-2 w-28 h-28 rounded-full border-2 border-secondary/10 border-b-secondary/50 animate-spin-slow-reverse" />
-                <div className="relative z-10 flex items-center justify-center w-20 h-20 bg-black/50 rounded-full backdrop-blur-sm border border-secondary/10 shadow-xl">
+                <div className="relative z-10 flex items-center justify-center w-20 h-20 bg-taupe-950/50 rounded-full backdrop-blur-sm border border-secondary/10 shadow-xl">
                     <img
                         src={networkIconRegistry[currentNetwork]}
                         alt={currentNetwork}

@@ -1,6 +1,4 @@
-// components/extension/AddAccountOverlay.tsx
-import React, { useState, useRef, useEffect } from 'react'
-import { create } from 'zustand'
+import React, { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { X, ChevronRight, KeyRound, ListOrdered, Clipboard, Trash2, Key, Plus, Check, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -8,6 +6,7 @@ import { useWalletStore, Wallet } from '@/store/useWalletStore'
 import { networkIconRegistry, Network } from '@/lib/constants'
 import { isValidPrivateKey, keypairGenerators } from '@/lib/walletUtils'
 import { scanForAccounts } from '@/lib/networkUtils'
+import { create } from 'zustand'
 
 interface AddAccountUIState {
     isOpen: boolean;
@@ -24,11 +23,6 @@ export const useAddAccountUI = create<AddAccountUIState>((set) => ({
     open: (step = 'options', network) => set({ isOpen: true, initialStep: step, targetNetwork: network }),
     close: () => set({ isOpen: false }),
 }))
-
-enum ImportWalletOptionsEnum {
-    RecoveryPhrase = 'RecoveryPhrase',
-    PrivateKey = 'PrivateKey'
-}
 
 const NetworkTab = ({ network, toggleNetwork, isSelected, isDisabled }: { network: string, toggleNetwork: () => void, isSelected: boolean, isDisabled: boolean }) => {
     const IconComponent = networkIconRegistry[network as Network] as any;
@@ -57,8 +51,7 @@ const NetworkTab = ({ network, toggleNetwork, isSelected, isDisabled }: { networ
                     )}
                 </div>
                 <div className='flex flex-col items-start'>
-                    <span className={`text-base font-semibold transition-colors ${isSelected && !isDisabled ? 'text-secondary' : 'text-secondary'
-                        }`}>
+                    <span className={`text-base font-semibold transition-colors ${isSelected && !isDisabled ? 'text-secondary' : 'text-secondary'}`}>
                         {network}
                     </span>
                     {isDisabled && (
@@ -374,10 +367,6 @@ const EnterRecoveryPhrase = ({ onNext, isScanning }: { onNext: (phrase: string) 
     )
 }
 
-// ----------------------------------------------------
-// MAIN ADD ACCOUNT OVERLAY COMPONENT
-// ----------------------------------------------------
-
 const AddAccountOverlay = () => {
     const { isOpen, close, initialStep, targetNetwork } = useAddAccountUI()
     const wallets = useWalletStore(state => state.wallets)
@@ -436,7 +425,7 @@ const AddAccountOverlay = () => {
             const importedPhraseCount = new Set(wallets.filter(w => w.importSource?.includes('Imported Phrase')).map(w => w.importSource)).size
             const sourceName = `Imported Phrase ${importedPhraseCount + 1}`
 
-            let activeAccounts: Wallet[] = [];
+            const activeAccounts: Wallet[] = [];
             let emptyWalletCount = 0;
             let accountIndex = 0;
             const GAP_LIMIT = 1;
@@ -468,7 +457,6 @@ const AddAccountOverlay = () => {
 
             if (activeAccounts.length > 0) {
                 setWallets([...wallets, ...activeAccounts])
-                // Focus the first newly imported account (which will be at the index of the old array's length)
                 setActiveAccountIndex(wallets.length)
                 toast.success(`Imported ${activeAccounts.length} account(s)!`)
             } else {
@@ -509,9 +497,9 @@ const AddAccountOverlay = () => {
 
     return (
         <div className={`absolute inset-0 w-full h-full z-[100] flex flex-col justify-end transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}>
-            <div className="flex-1 w-full cursor-pointer bg-black/40 backdrop-blur-sm transition-opacity duration-500" style={{ opacity: isOpen ? 1 : 0 }} onClick={close} />
+            <div className="flex-1 w-full cursor-pointer bg-taupe-950/40 backdrop-blur-sm transition-opacity duration-500" style={{ opacity: isOpen ? 1 : 0 }} onClick={close} />
 
-            <div className="w-full h-[540px] bg-black/95 backdrop-blur-xl border-t border-secondary/10 rounded-t-3xl flex flex-col items-center shadow-2xl relative">
+            <div className="w-full h-[540px] bg-taupe-950/95 backdrop-blur-xl border-t border-secondary/10 rounded-t-3xl flex flex-col items-center shadow-2xl relative">
                 <div className="w-full flex flex-col items-center justify-center h-8 shrink-0">
                     <div className="w-12 h-1.5 bg-secondary/20 rounded-full mt-2" />
                 </div>

@@ -23,6 +23,9 @@ dependencies:
   '@radix-ui/react-slot':
     specifier: ^1.2.4
     version: 1.2.4(@types/react@19.2.14)(react@19.2.4)
+  '@solana-program/system':
+    specifier: ^0.12.0
+    version: 0.12.0(@solana/kit@6.1.0)
   '@solana/client':
     specifier: ^1.7.0
     version: 1.7.0(@solana/sysvars@4.0.0)(@types/react@19.2.14)(fastestsmallesttextencoderdecoder@1.0.22)(react@19.2.4)(typescript@5.9.3)
@@ -41,6 +44,9 @@ dependencies:
   '@tanstack/react-form':
     specifier: ^1.28.0
     version: 1.28.3(react-dom@19.2.4)(react@19.2.4)
+  '@tanstack/react-query':
+    specifier: ^5.90.21
+    version: 5.90.21(react@19.2.4)
   bip39:
     specifier: ^3.1.0
     version: 3.1.0
@@ -2450,6 +2456,14 @@ packages:
       '@solana/kit': 5.5.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
     dev: false
 
+  /@solana-program/system@0.12.0(@solana/kit@6.1.0):
+    resolution: {integrity: sha512-ZnAAWeGVMWNtJhw3GdifI2HnhZ0A0H0qs8tBkcFvxp/8wIavvO+GOM4Jd0N22u2+Lni2zcwvcrxrsxj6Mjphng==}
+    peerDependencies:
+      '@solana/kit': ^6.1.0
+    dependencies:
+      '@solana/kit': 6.1.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3)
+    dev: false
+
   /@solana-program/token-2022@0.7.0(@solana/kit@5.5.1)(@solana/sysvars@4.0.0):
     resolution: {integrity: sha512-ByQdTdbgyhjGf9JklqGRf3u0nbQF5Hbn8Wb2Ir0LZHCgo8lG+2PmBN8UvNY6ONVYb7CjLbApgghvBAEQK1aagg==}
     deprecated: This package has been deprecated
@@ -4450,6 +4464,10 @@ packages:
     engines: {node: '>=18'}
     dev: false
 
+  /@tanstack/query-core@5.90.20:
+    resolution: {integrity: sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==}
+    dev: false
+
   /@tanstack/react-form@1.28.3(react-dom@19.2.4)(react@19.2.4):
     resolution: {integrity: sha512-84yd0swZRcyC3Q46dYBH6bHf1tlIY1flchbdG3VwArg/wLVW5RdBenIrJhleHjk2OxXuF+9HoKQbHglJyWIXQA==}
     peerDependencies:
@@ -4464,6 +4482,15 @@ packages:
       react: 19.2.4
     transitivePeerDependencies:
       - react-dom
+    dev: false
+
+  /@tanstack/react-query@5.90.21(react@19.2.4):
+    resolution: {integrity: sha512-0Lu6y5t+tvlTJMTO7oh5NSpJfpg/5D41LlThfepTixPYkJ0sE2Jj0m0f6yYqujBwIXlId87e234+MxG3D3g7kg==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.90.20
+      react: 19.2.4
     dev: false
 
   /@tanstack/react-store@0.8.1(react-dom@19.2.4)(react@19.2.4):

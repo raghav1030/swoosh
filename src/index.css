@@ -350,3 +350,29 @@ code {
 .animate-spin-slow-reverse {
   animation: spin-reverse 3s linear infinite;
 }
+
+/* Firefox Support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Chrome, Edge, and Safari Support */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px; /* Very thin vertical scrollbar */
+  height: 4px; /* Very thin horizontal scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Invisible track */
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15); /* Subtle white/secondary color */
+  border-radius: 8px; /* Rounded pill shape */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3); /* Slightly brighter when hovered */
+}

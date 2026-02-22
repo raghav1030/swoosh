@@ -1,6 +1,11 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ImportWalletOptions as ImportWalletOptionsEnum, Network } from '@/lib/constants'
+import { Network } from '@/lib/constants'
+
+export enum ImportWalletOptionsEnum {
+    RecoveryPhrase = 'RecoveryPhrase',
+    PrivateKey = 'PrivateKey'
+}
 
 export interface Wallet {
     network: Network;
@@ -8,6 +13,8 @@ export interface Wallet {
     privateKey: string;
     isImported?: boolean;
     importSource?: string;
+    name?: string;
+    avatar?: string;
 }
 
 interface WalletState {
@@ -77,6 +84,9 @@ export const useWalletStore = create<WalletState>()(
                 isNewWallet: state.isNewWallet,
                 selectedNetworks: state.selectedNetworks,
                 importWalletOption: state.importWalletOption,
+                wallets: state.wallets,
+                password: state.password,
+                mnemonic: state.mnemonic
             }),
         }
     )

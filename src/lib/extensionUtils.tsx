@@ -28,7 +28,7 @@ export const unlockWallet = async (password: string): Promise<boolean> => {
             ? selectedNetworks
             : [Network.Solana];
 
-        let allActiveWallets: Wallet[] = [];
+        const allActiveWallets: Wallet[] = [];
 
         for (const network of networksToGenerate) {
             let emptyWalletCount = 0;

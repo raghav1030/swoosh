@@ -75,7 +75,3 @@ export const scanForAccounts = async (publicKey: string, networks: Network[] = [
     console.log(results)
     return results.filter((r): r is AccountActivity => r !== null);
 };
-
-
-
-// until sing salad salute miss will dentist huge dream kit drip call

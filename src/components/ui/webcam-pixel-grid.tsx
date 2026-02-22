@@ -428,7 +428,7 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
       {/* Error popup */}
       {error && showErrorPopup && (
         <div className="animate-in fade-in slide-in-from-top-2 fixed top-4 right-4 z-50 duration-300">
-          <div className="relative flex max-w-sm items-start gap-3 rounded-lg border border-secondary/10 bg-black/80 p-4 shadow-2xl backdrop-blur-xl">
+          <div className="relative flex max-w-sm items-start gap-3 rounded-lg border border-secondary/10 bg-taupe-950/80 p-4 shadow-2xl backdrop-blur-xl">
             {/* Close button */}
             <button
               onClick={() => setShowErrorPopup(false)}
@@ -502,7 +502,7 @@ export const WebcamPixelGrid: React.FC<WebcamPixelGridProps> = ({
       {error && !showErrorPopup && (
         <button
           onClick={() => setShowErrorPopup(true)}
-          className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-secondary/10 bg-black/60 text-secondary/50 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:bg-black/80 hover:text-secondary/80"
+          className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-secondary/10 bg-taupe-950/60 text-secondary/50 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:bg-taupe-950/80 hover:text-secondary/80"
           title="Camera access required"
         >
           <svg
