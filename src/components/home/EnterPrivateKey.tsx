@@ -80,7 +80,7 @@ const EnterPrivateKey = ({ onNext, network }: EnterPrivateKeyProps) => {
 
             </div>
             <Button
-                className={`w-full h-13 bg-secondary/70 hover:bg-secondary/80 rounded-sm tracking-wide text-black font-semibold text-md transition-opacity`}
+                className={`w-full h-13 bg-secondary/70 hover:bg-secondary/80 rounded-sm tracking-wide text-black font-semibold text-base transition-opacity`}
                 size={'lg'}
                 onClick={handleSubmit}
                 disabled={!isValid}

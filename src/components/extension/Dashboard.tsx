@@ -146,7 +146,7 @@ const Dashboard = ({ onLock }: DashboardProps) => {
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
-      
+
       <AnimatePresence>
         {showWarning && (
           <motion.div
@@ -156,7 +156,7 @@ const Dashboard = ({ onLock }: DashboardProps) => {
             className="w-full bg-yellow-500/10 border-b border-yellow-500/20 overflow-hidden shrink-0"
           >
             <div className="flex items-start justify-between p-3 px-4 gap-3">
-              <p className="text-md font-medium text-yellow-500/90 leading-relaxed flex-1">
+              <p className="text-base font-medium text-yellow-500/90 leading-relaxed flex-1">
                 We do not encourage the use of this wallet for real transactions. It is completely made for learning first base. You are currently connected to <strong>{networkLabel}</strong>.
               </p>
               <button onClick={() => setShowWarning(false)} className="text-yellow-500/50 hover:text-yellow-500 transition-colors shrink-0">

@@ -40,7 +40,7 @@ const SettingUpWallets = ({ selectedNetworks, onComplete, isNewWallet, isProcess
                 <h2 className="text-2xl font-semibold text-secondary tracking-wide">
                     Setting up <span className="text-secondary font-bold">{currentNetwork}</span> Wallet
                 </h2>
-                <p className="text-secondary/60 text-sm">
+                <p className="text-secondary/60 text-base tracking-wide">
                     {isNewWallet ? "Generating" : "Importing"} keys and encrypting data...
                 </p>
             </div>

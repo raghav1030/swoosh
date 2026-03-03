@@ -44,7 +44,7 @@ const ImportWalletOptions = ({
                     <h3 className='text-2xl tracking-wide font-semibold text-secondary'>
                         Import {selectedNetwork} wallet
                     </h3>
-                    <p className='font-medium tracking-wide text-secondary/70 text-sm'>
+                    <p className='font-medium tracking-wide text-secondary/70 text-base '>
                         Choose a method
                     </p>
                 </div>

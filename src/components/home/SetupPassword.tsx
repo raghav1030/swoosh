@@ -36,7 +36,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
         <div className='w-full flex flex-1 flex-col items-center  justify-start p-5 gap-12'>
             <div className=' w-full flex flex-col items-center justify-center gap-4 max-w-[80%]'>
                 <h2 className='text-2xl font-semibold text-secondary text-center'>Setup password</h2>
-                <p className='text-secondary/80 tracking-wide text-center px-4'>
+                <p className='text-secondary/80 tracking-wide text-center px-4 text-base'>
                     It should be at least 8 characters. You'll need this to unlock Swoosh.
                 </p>
             </div>
@@ -55,7 +55,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                         name="password"
                         children={(field) => (
                             <div className="flex flex-col gap-2 w-full">
-                                <Label htmlFor={field.name} className="text-secondary/90 text-sm ">Password</Label>
+                                <Label htmlFor={field.name} className="text-secondary/90 tracking-wide text-base">Password</Label>
                                 <div className="relative">
                                     <Input
                                         id={field.name}
@@ -64,7 +64,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         type={showPassword ? "text" : "password"}
-                                        className="w-full h-12 bg-background/12 hover:bg-background/10  rounded-sm px-4 pr-10 text-secondary placeholder:text-secondary/20 "
+                                        className="w-full h-12 bg-background/12 hover:bg-background/10 tracking-wide text-base  rounded-sm px-4 pr-10 text-secondary placeholder:text-secondary/20 "
                                         placeholder="••••••••"
                                     />
                                     <button
@@ -87,7 +87,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                         name="confirmPassword"
                         children={(field) => (
                             <div className="flex flex-col gap-2 w-full">
-                                <Label htmlFor={field.name} className="text-secondary/90 text-sm">Confirm Password</Label>
+                                <Label htmlFor={field.name} className="text-secondary/90 tracking-wide text-base">Confirm Password</Label>
                                 <div className="relative">
                                     <Input
                                         id={field.name}
@@ -96,7 +96,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         type={showConfirmPassword ? "text" : "password"}
-                                        className="w-full h-12 bg-background/12 hover:bg-background/10  rounded-sm px-4 pr-10 text-secondary placeholder:text-secondary/20 "
+                                        className="w-full h-12 bg-background/12 hover:bg-background/10 tracking-wide text-base  rounded-sm px-4 pr-10 text-secondary placeholder:text-secondary/20 "
                                         placeholder="••••••••"
                                     />
                                     <button
@@ -123,7 +123,7 @@ const SetupPassword = ({ setPassword, onNext }: { setPassword: (password: string
                             <Button
                                 type="submit"
                                 disabled={!canSubmit}
-                                className={`w-full h-12 bg-secondary/95 hover:bg-secondary rounded-sm tracking-wide text-black font-semibold text-md transition-opacity ${!canSubmit || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
+                                className={`w-full h-12 bg-secondary/95 hover:bg-secondary  text-base rounded-sm tracking-wide text-black font-semibold text-base transition-opacity ${!canSubmit || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
                                 size={'lg'}
                             >
                                 {isSubmitting ? 'Setting up...' : 'Next'}

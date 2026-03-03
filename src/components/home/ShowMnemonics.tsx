@@ -32,7 +32,7 @@ const ShowMnemonics = ({ mnemonic, onNext }: { mnemonic: string; onNext: () => v
         <div className='w-full flex flex-col items-center justify-center p-8 pt-2 gap-6'>
             <div className='w-full flex flex-col items-center justify-center gap-2 text-center'>
                 <h2 className='text-2xl font-semibold text-secondary tracking-wide'>Secret Recovery Phrase</h2>
-                <p className='text-secondary/80 text-sm max-w-xs tracking-wide'>
+                <p className='text-secondary/80  max-w-sm tracking-wide text-base '>
                     Save these words in a safe place. Do not share them with anyone.
                 </p>
             </div>
@@ -50,8 +50,8 @@ const ShowMnemonics = ({ mnemonic, onNext }: { mnemonic: string; onNext: () => v
             >
                 {words.map((word, index) => (
                     <div key={index} className='rounded-xs bg-secondary/10 flex items-center justify-start gap-2 p-2.5 px-4 select-none'>
-                        <p className='text-secondary/40 text-md'>{index + 1}</p>
-                        <p className='text-secondary text-md'>{word}</p>
+                        <p className='text-secondary/40 text-base'>{index + 1}</p>
+                        <p className='text-secondary text-base'>{word}</p>
                     </div>
                 ))}
 
@@ -69,7 +69,7 @@ const ShowMnemonics = ({ mnemonic, onNext }: { mnemonic: string; onNext: () => v
 
             <div className='flex items-center gap-3 p-3 bg-red-500/10 border border-red-500/20 rounded-md w-full'>
                 <div className="min-w-[2px] h-[90%] bg-red-500/50 rounded-full" />
-                <p className='text-sm tracking-wider text-red-200/80 leading-relaxed'>
+                <p className='text-sm tracking-wider text-red-200/80 leading-relaxed '>
                     Never share your secret or enter it into an app or website.
                     Anyone with your secret will have complete control of your account.
                 </p>

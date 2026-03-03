@@ -67,7 +67,7 @@ const EnterRecoveryPhrase = ({ onNext }: { onNext: (phrase: string) => void }) =
         <div className='w-full flex flex-1 flex-col items-center  justify-between p-5 gap-12'>
             <div className='w-full flex flex-col items-center justify-center gap-2 text-center'>
                 <h2 className='text-2xl font-semibold text-secondary tracking-wide'>Secret Recovery Phrase</h2>
-                <p className='text-secondary/80 text-sm max-w-xs tracking-wide'>
+                <p className='text-secondary/80 max-w-xs text-base tracking-wide'>
                     Enter or paste your phrase
                 </p>
             </div>
@@ -115,7 +115,7 @@ const EnterRecoveryPhrase = ({ onNext }: { onNext: (phrase: string) => void }) =
 
             <div className="w-full pt-2">
                 <Button
-                    className={`w-full h-13 bg-secondary/70 hover:bg-secondary/80 rounded-sm tracking-wide text-black font-semibold text-md transition-opacity`}
+                    className={`w-full h-13 bg-secondary/70 hover:bg-secondary/80 rounded-sm tracking-wide text-black font-semibold text-base transition-opacity`}
                     size={'lg'}
                     onClick={() => {
                         if (isValid) onNext(words.join(' '))

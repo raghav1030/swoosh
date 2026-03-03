@@ -41,7 +41,7 @@ const Welcome = ({ setStep, setIsNewWallet }: WelcomeProps) => {
                 <p className="tracking-wide text-2xl text-secondary font-bold">
                     Welcome to Swoosh
                 </p>
-                <p className="text-secondary/80 px-4 font-semibold">
+                <p className="text-secondary/80 px-4 font-semibold text-base tracking-wide">
                     You'll use this wallet to send and receive crypto and NFTs
                 </p>
             </div>
@@ -59,7 +59,7 @@ const Welcome = ({ setStep, setIsNewWallet }: WelcomeProps) => {
                             htmlFor="terms-checkbox"
                             className="flex items-center gap-1 cursor-pointer select-none"
                         >
-                            <span className={`text-secondary text-md transition-opacity duration-300 ${checked ? 'opacity-100' : 'opacity-60'}`}>
+                            <span className={`text-secondary text-base transition-opacity duration-300 ${checked ? 'opacity-100' : 'opacity-60'}`}>
                                 I agree to the
                             </span>
                             <Link to='/tnc'>

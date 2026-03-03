@@ -13,7 +13,7 @@ const WalletNotFound = ({ onCreateNew, onTryAgain }: WalletNotFoundProps) => {
                 <h2 className="text-2xl font-semibold text-secondary tracking-wide">
                     Import Funded Accounts
                 </h2>
-                <p className="text-secondary/60 tracking-wide">
+                <p className="text-secondary/60 tracking-wide text-base">
                     Select one or more funded accounts to import
                 </p>
             </div>
@@ -24,7 +24,7 @@ const WalletNotFound = ({ onCreateNew, onTryAgain }: WalletNotFoundProps) => {
                     <h3 className="text-xl font-semibold  text-secondary">
                         No funded account found
                     </h3>
-                    <h4 className="text font-semibold tracking-wide text-secondary/60 max-w-[90%] text-center">
+                    <h4 className="text font-semibold tracking-wide text-secondary/60 max-w-[90%] text-center text-base">
                         You can use the provided recovery phrase to create a new wallet, or use advanced search
 
                     </h4>

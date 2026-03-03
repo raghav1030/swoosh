@@ -108,7 +108,7 @@ export const SelectAddressStep = ({ activeWallet, address, setAddress, onNext }:
                     <div className="flex flex-col gap-2 shrink-0">
                         <span className="text-xs font-semibold text-white/50 uppercase tracking-wider px-1">Your Wallets</span>
                         {myOtherWallets.length === 0 ? (
-                            <div className="text-white/30 text-md px-1 py-4 text-center border border-dashed border-white/10 rounded-sm italic">
+                            <div className="text-white/30 text-base px-1 py-4 text-center border border-dashed border-white/10 rounded-sm italic">
                                 No other wallets found on this network.
                             </div>
                         ) : (

@@ -6,7 +6,7 @@ import { useWalletStore } from '../../store/useWalletStore'
 import { useState, useEffect, useCallback } from 'react'
 import * as CryptoJS from 'crypto-js'
 
-const EXTENSION_ID = "jjikigjnfeogeefjleigkanlbdefhhpm"
+const EXTENSION_ID = "egpnoiomgnehopjhhlebenghjcialbbh"
 
 const WalletCreationSuccess = () => {
     // Extract everything we need from the store
@@ -18,7 +18,6 @@ const WalletCreationSuccess = () => {
     const [isSynced, setIsSynced] = useState(false)
 
     const handleSyncAndOpen = useCallback(async () => {
-        // Validation check
         if (!mnemonic || !password) {
             console.error("Mnemonic or Password missing from store")
             return
@@ -27,7 +26,6 @@ const WalletCreationSuccess = () => {
         try {
             const encryptedMnemonic = CryptoJS.AES.encrypt(mnemonic, password).toString()
 
-            // 1. Check for Extension Context
             if (typeof window !== 'undefined' && window.chrome?.runtime?.sendMessage) {
                 window.chrome.runtime.sendMessage(
                     EXTENSION_ID,
@@ -47,13 +45,11 @@ const WalletCreationSuccess = () => {
                         if (response?.success) {
                             console.log("Sync Successful. Resetting Flow...")
                             setIsSynced(true)
-                            // Trigger reset after a tiny delay to ensure state consistency
                             setTimeout(() => resetFlow(), 100)
                         }
                     }
                 )
             } else {
-                // 2. Fallback for Web/Mobile (Local Storage & Popup)
                 localStorage.setItem('swoosh_web_encrypted_mnemonic', encryptedMnemonic)
                 setIsSynced(true)
 
@@ -68,7 +64,6 @@ const WalletCreationSuccess = () => {
                     `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=no,status=no`
                 );
 
-                // Reset flow for the web fallback
                 setTimeout(() => resetFlow(), 100)
             }
         } catch (error) {
@@ -96,7 +91,7 @@ const WalletCreationSuccess = () => {
                     <h2 className='text-2xl font-semibold text-secondary tracking-wide'>
                         {isSynced ? "Wallet Synced!" : "You're all good!"}
                     </h2>
-                    <div className='text-secondary/80 max-w-xs tracking-wide flex items-center justify-center gap-1'>
+                    <div className='text-secondary/80 max-w-xs tracking-wide  text-base flex items-center justify-center gap-1'>
                         {isSynced
                             ? "Check your extension bar to open Swoosh."
                             : <>Open Swoosh with <span className='text-blue-400 font-semibold'> Shift + Alt + S</span></>

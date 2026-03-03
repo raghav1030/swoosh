@@ -33,31 +33,30 @@ export default function App() {
         const initializeExtension = async () => {
             try {
                 if (!window.chrome || !window.chrome.tabs) {
-                    setStatus("locked")
-                    return
+                    setStatus("locked");
+                    return;
                 }
-                const currentStatus = await checkWalletStatus()
+
+                const currentStatus = await checkWalletStatus();
 
                 if (currentStatus === 'no_wallet') {
-                    chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') })
-                    window.close()
-                    return
+                    chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') });
+                    window.close();
+                    return;
                 }
+                setStatus('locked');
 
-                if (currentStatus === 'unlocked') {
-                    setStatus('select_wallet')
-                } else {
-                    setStatus('locked')
-                }
+                await lockWallet();
+
             } catch (error) {
-                console.error("Initialization error:", error)
-                chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') })
-                window.close()
+                console.error("Initialization error:", error);
+                chrome.tabs.create({ url: chrome.runtime.getURL('onboarding.html') });
+                window.close();
             }
         }
 
-        initializeExtension()
-    }, [])
+        initializeExtension();
+    }, []);
 
     const handleUnlock = async (password: string): Promise<boolean> => {
         const isSuccess = await unlockWallet(password)

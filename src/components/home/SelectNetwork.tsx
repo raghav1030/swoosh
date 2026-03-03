@@ -30,7 +30,7 @@ const SelectNetwork = ({ isNewWallet, selectedNetworks, setSelectedNetworks, onN
                 <h2 className='text-2xl font-semibold text-secondary text-center'>
                     {isNewWallet ? "Select one or more networks" : "Select a network"}
                 </h2>
-                <p className='text-secondary/80 tracking-wide text-center '>
+                <p className='text-secondary/80 tracking-wide text-center text-base '>
                     {isNewWallet ? "You can always change this later." : "Choose the network you want to import."}
                 </p>
             </div>

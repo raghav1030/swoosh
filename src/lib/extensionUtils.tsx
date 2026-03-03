@@ -81,24 +81,27 @@ export const lockWallet = async (): Promise<void> => {
 };
 
 export const checkWalletStatus = async (): Promise<'unlocked' | 'locked' | 'no_wallet'> => {
-    const currentWallets = useWalletStore.getState().wallets;
-
-    if (currentWallets && currentWallets.length > 0) {
-        return 'unlocked';
-    }
-
     if (!window.chrome || !window.chrome.storage) {
         return 'no_wallet';
     }
 
     try {
-        const storageData = await chrome.storage.local.get(['hasWallet']);
-        if (storageData.hasWallet) {
-            return 'locked';
+        const storageData = await chrome.storage.local.get(['hasWallet', 'encryptedMnemonic']);
+
+        if (!storageData.hasWallet || !storageData.encryptedMnemonic) {
+            return 'no_wallet';
         }
+
+        const currentWallets = useWalletStore.getState().wallets;
+        const password = useWalletStore.getState().password;
+
+        if (currentWallets && currentWallets.length > 0 && password) {
+            return 'unlocked';
+        }
+
+        return 'locked';
+
     } catch (error) {
         return 'no_wallet';
     }
-
-    return 'no_wallet';
 };
